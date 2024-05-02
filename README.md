@@ -1,2 +1,2 @@
-# healing_neko
+# Healing neko
 
