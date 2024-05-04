@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -87,6 +88,14 @@ class _homePagePageState extends State<homePagePage> {
   TextEditingController _hobbyController = TextEditingController();
   String username = "...";
   String welcomeMessage = "...";
+  var _currentIndex = 0;
+
+  //navigation states
+  var homeVis = true;
+  var treeVis = false;
+  var nekoVis = false;
+  var sosVis = false;
+  var settingsVis = false;
 
   @override
   void initState() {
@@ -159,35 +168,114 @@ class _homePagePageState extends State<homePagePage> {
         backgroundColor: const Color(0xFF332841),
         automaticallyImplyLeading: false,
       ),
+      bottomNavigationBar: SalomonBottomBar(
+        currentIndex: _currentIndex,
+        onTap: (i) {
+          vibrate();
+          setState(() => _currentIndex = i);
+          if (_currentIndex == 0) {
+            homeVis = true;
+            treeVis = false;
+            nekoVis = false;
+            sosVis = false;
+            settingsVis = false;
+          } else if (_currentIndex == 1) {
+            homeVis = false;
+            treeVis = true;
+            nekoVis = false;
+            sosVis = false;
+            settingsVis = false;
+          } else if (_currentIndex == 2) {
+            homeVis = false;
+            treeVis = false;
+            nekoVis = true;
+            sosVis = false;
+            settingsVis = false;
+          } else if (_currentIndex == 3) {
+            homeVis = false;
+            treeVis = false;
+            nekoVis = false;
+            sosVis = true;
+            settingsVis = false;
+          } else if (_currentIndex == 4) {
+            homeVis = false;
+            treeVis = false;
+            nekoVis = false;
+            sosVis = false;
+            settingsVis = true;
+          } else {
+            homeVis = false;
+            treeVis = false;
+            nekoVis = false;
+            sosVis = false;
+            settingsVis = false;
+          }
+        },
+        backgroundColor: const Color(0xFF2B2331),
+        selectedItemColor: const Color.fromARGB(224, 140, 125, 175),
+        unselectedItemColor: const Color.fromARGB(224, 140, 125, 175),
+        items: [
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.home_rounded),
+            title: const Text("Home"),
+            selectedColor: const Color(0xFFAE7DEE),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.account_tree_rounded),
+            title: const Text("Healing"),
+            selectedColor: const Color(0xFFAE7DEE),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.pets_rounded),
+            title: const Text("Neko"),
+            selectedColor: const Color(0xFFAE7DEE),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.sos_rounded),
+            title: const Text("Emergency"),
+            selectedColor: const Color(0xFFAE7DEE),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.settings_rounded),
+            title: const Text("Settings"),
+            selectedColor: const Color(0xFFAE7DEE),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                width: double.infinity,
-                child: Text(
-                  'Welcome back, $username!',
-                  style: const TextStyle(
-                    fontSize: 40,
-                    color: Color(0xFFC8ACEE),
-                    fontWeight: FontWeight.w900,
+          child: Visibility(
+            visible: homeVis,
+            child: Expanded(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      'Welcome back, $username!',
+                      style: const TextStyle(
+                        fontSize: 40,
+                        color: Color(0xFFC8ACEE),
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                width: double.infinity,
-                child: Text(
-                  "$welcomeMessage",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Color(0xFF7F698C),
-                    fontWeight: FontWeight.w700,
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "$welcomeMessage",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Color(0xFF7F698C),
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
