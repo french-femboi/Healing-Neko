@@ -96,7 +96,6 @@ class _DataSavePageState extends State<DataSavePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Set the navigation bar color to the app's background color
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
     ));
@@ -113,72 +112,88 @@ class _DataSavePageState extends State<DataSavePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(
-              width: double.infinity,
-              child: Text(
-                'Welcome :)',
-                style: TextStyle(
-                  fontSize: 40,
-                  color: Color(0xFFC8ACEE),
-                  fontWeight: FontWeight.w900,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              const SizedBox(
+                width: double.infinity,
+                child: Text(
+                  'Welcome :)',
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Color(0xFFC8ACEE),
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            const SizedBox(
-              width: double.infinity,
-              child: Text(
-                "Welcome to Healing Neko, before you start using the app, please fill out some data for customization. This data will be saved locally on your device, and can be deleted at any time :]",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Color(0xFF7F698C),
-                  fontWeight: FontWeight.w700,
+              const SizedBox(height: 10),
+              const SizedBox(
+                width: double.infinity,
+                child: Text(
+                  "Welcome to Healing Neko, before you start using the app, please fill out some data for customization. This data will be saved locally on your device, and can be deleted at any time :]",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFF7F698C),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              width: double.infinity,
-              child: Text(
-                "Healing Neko uses server connections to fetch data for the app's content. The connection is encrypted, and no data is shared from your device. There is absolutely no privacy risk, you're safe with us :)",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Color(0xFF7F698C),
-                  fontWeight: FontWeight.w700,
+              const SizedBox(
+                width: double.infinity,
+                child: Text(
+                  "Healing Neko uses server connections to fetch data for the app's content. The connection is encrypted, and no data is shared from your device. There is absolutely no privacy risk, you're safe with us :)",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFF7F698C),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: _nameController,
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                labelText: "Display name",
-                hintStyle: const TextStyle(color: Color(0xFFAE7DEE)),
-                labelStyle: const TextStyle(
-                    color: Color(0xFFAE7DEE)), // Set label color to white
-                border: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(20.0), // Set rounded corners
-                  borderSide: const BorderSide(
-                      color: Color(0xFF61586D)), // Set border color to white
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(20.0), // Set rounded corners
-                  borderSide: const BorderSide(
-                      color: Color(0xFF61586D)), // Set border color to white
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(20.0), // Set rounded corners
-                  borderSide: const BorderSide(
-                      color: Color(0xFF61586D)), // Set border color to white
+              const SizedBox(height: 20),
+              TextField(
+                controller: _nameController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: "Display name",
+                  hintStyle: const TextStyle(color: Color(0xFFAE7DEE)),
+                  labelStyle: const TextStyle(color: Color(0xFFAE7DEE)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(color: Color(0xFF61586D)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(color: Color(0xFF61586D)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(color: Color(0xFF61586D)),
+                  ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    vibrate();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF221B2E),
+                  ),
+                  child: const Text(
+                    "Save data",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 171, 145, 218),
+                      fontFamily: 'quicksand',
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
