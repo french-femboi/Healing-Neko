@@ -18,6 +18,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:healing_neko/pre/data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 
@@ -35,9 +36,12 @@ class MyMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'For My Love',
+      title: 'Healing Neko',
       theme: themeData(),
-      home: const MyMainPage(title: 'For My Love'),
+      home: const MyMainPage(title: 'Healing Neko'),
+      routes: {
+        '/pre': (context) => DataSavePage(),
+      },
     );
   }
 }
@@ -83,14 +87,16 @@ Future<void> initializeWindow(BuildContext context) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   WidgetsFlutterBinding.ensureInitialized();
 
-  final bool? dataNeeded = prefs.getBool('fml_introdone');
+  final bool? dataNeeded = prefs.getBool('hln_setup');
 
   if(dataNeeded == true) {
     //user already has local data saved
 
   } else {
     //user doesn't have local data saved
-    
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushNamed(context, '/pre');
+    });
   }
 
 }
@@ -140,14 +146,14 @@ class _MyMainPageState extends State<MyMainPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                //TIMER ICON
+
                 SizedBox(
                   height: 220,
                   child: Image.asset('assets/img/logo1.png'),
                 ),
+
                 const SizedBox(height: 40),
 
-                //TITLE TEXT
                 const Text(
                   'Healing Neko',
                   style: TextStyle(
@@ -157,6 +163,7 @@ class _MyMainPageState extends State<MyMainPage> {
                   ),
                   textAlign: TextAlign.center,
                 ),
+
                 const SizedBox(height: 10),
 
                 const Text(
@@ -177,7 +184,7 @@ class _MyMainPageState extends State<MyMainPage> {
                     fontWeight: FontWeight.w700,
                     fontStyle: FontStyle.italic,
                   ),
-                  textAlign: TextAlign.center,
+
                 ),
               ],
             ),
