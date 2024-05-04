@@ -244,39 +244,75 @@ class _homePagePageState extends State<homePagePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: SingleChildScrollView(
-          child: Visibility(
-            visible: homeVis,
-            child: Expanded(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      'Welcome back, $username!',
-                      style: const TextStyle(
-                        fontSize: 40,
-                        color: Color(0xFFC8ACEE),
-                        fontWeight: FontWeight.w900,
+        child: Column(
+          children: [
+            Visibility(
+              visible: homeVis,
+              child: Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          'Welcome back, $username!',
+                          style: const TextStyle(
+                            fontSize: 40,
+                            color: Color(0xFFC8ACEE),
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      "$welcomeMessage",
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Color(0xFF7F698C),
-                        fontWeight: FontWeight.w700,
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          "$welcomeMessage",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Color(0xFF7F698C),
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
+            Visibility(
+              visible: treeVis,
+              child: Expanded(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "$username's healing tree",
+                        style: const TextStyle(
+                          fontSize: 40,
+                          color: Color(0xFFC8ACEE),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "Check out your healing tree here, or go through a new one :)",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF7F698C),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
