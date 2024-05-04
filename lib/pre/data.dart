@@ -1,8 +1,24 @@
+//  _    _            _ _               _   _      _             ____  
+// | |  | |          | (_)             | \ | |    | |          _|___ \ 
+// | |__| | ___  __ _| |_ _ __   __ _  |  \| | ___| | _____   (_) __) |
+// |  __  |/ _ \/ _` | | | '_ \ / _` | | . ` |/ _ \ |/ / _ \     |__ < 
+// | |  | |  __/ (_| | | | | | | (_| | | |\  |  __/   < (_) |  _ ___) |
+// |_|  |_|\___|\__,_|_|_|_| |_|\__, | |_| \_|\___|_|\_\___/  (_)____/ 
+//                               __/ |                                 
+//                              |___/                                  
+//
+// ----------------------------------------------------------------------------
+// Made with love and a cat by Catpawz
+// based on ideas from firebird496
+// ----------------------------------------------------------------------------
+//
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
+import '../main/home.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -18,9 +34,12 @@ class MyMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'For My Love',
+      title: 'Healing Neko',
       theme: themeData(),
       home: const DataSavePage(),
+      routes: {
+        '/home': (context) => homePagePage(),
+      },
     );
   }
 }
@@ -68,7 +87,7 @@ Future<void> initializeWindow(BuildContext context) async {
 
 class _DataSavePageState extends State<DataSavePage> {
   TextEditingController _nameController = TextEditingController();
-  TextEditingController _statussController = TextEditingController();
+  TextEditingController _hobbyController = TextEditingController();
 
   vibrate() {
     if (Theme.of(context).platform == TargetPlatform.android) {
@@ -78,8 +97,18 @@ class _DataSavePageState extends State<DataSavePage> {
   }
 
   completeSetup() async {
+    //get the string data from the textfields
+    String v_name = _nameController.text;
+    String v_hobbies = _hobbyController.text;
+
+    //save all the local data into sharedpreferences
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('hln_name', v_name);
+    await prefs.setString('hln_hobbies', v_hobbies);
     await prefs.setBool('hln_setup', true);
+
+    //after saving everything successfully redirect to the homepage
+    Navigator.pushNamed(context, '/home');
   }
 
   @override
@@ -107,7 +136,7 @@ class _DataSavePageState extends State<DataSavePage> {
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
-        backgroundColor: const Color(0xFF422E5A),
+        backgroundColor: const Color(0xFF332841),
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -141,7 +170,18 @@ class _DataSavePageState extends State<DataSavePage> {
               const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Healing Neko uses server connections to fetch data for the app's content. The connection is encrypted, and no data is shared from your device. There is absolutely no privacy risk, you're safe with us :)",
+                  "Healing Neko uses server connections to fetch data for the app's content and algorithm. The connection is encrypted, and no data is shared from your device. There is absolutely no privacy risk, you're safe with us :)",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFF7F698C),
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: double.infinity,
+                child: Text(
+                  "Take the time to configure the app to your wishes :) We will add more customization features soon. Remember you do not have to put in your real name, just use your preferred name :)",
                   style: TextStyle(
                     fontSize: 18,
                     color: Color(0xFF7F698C),
@@ -171,12 +211,35 @@ class _DataSavePageState extends State<DataSavePage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _hobbyController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: "Favorite activities",
+                  hintStyle: const TextStyle(color: Color(0xFFAE7DEE)),
+                  labelStyle: const TextStyle(color: Color(0xFFAE7DEE)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(color: Color(0xFF61586D)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(color: Color(0xFF61586D)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(color: Color(0xFF61586D)),
+                  ),
+                ),
+              ),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
                     vibrate();
+                    completeSetup();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF221B2E),

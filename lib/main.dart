@@ -13,11 +13,10 @@
 // ----------------------------------------------------------------------------
 //
 // ignore_for_file: unused_local_variable, depend_on_referenced_packages
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:healing_neko/main/home.dart';
 import 'package:healing_neko/pre/data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
@@ -41,6 +40,7 @@ class MyMain extends StatelessWidget {
       home: const MyMainPage(title: 'Healing Neko'),
       routes: {
         '/pre': (context) => DataSavePage(),
+        '/home': (context) => homePagePage(),
       },
     );
   }
@@ -87,11 +87,14 @@ Future<void> initializeWindow(BuildContext context) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   WidgetsFlutterBinding.ensureInitialized();
 
+  //get if the user has already saved local data
   final bool? dataNeeded = prefs.getBool('hln_setup');
 
   if(dataNeeded == true) {
     //user already has local data saved
-
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushNamed(context, '/home');
+    });
   } else {
     //user doesn't have local data saved
     Future.delayed(Duration(seconds: 3), () {
@@ -103,6 +106,7 @@ Future<void> initializeWindow(BuildContext context) async {
 
 class _MyMainPageState extends State<MyMainPage> {
   bool _showColumn = false;
+  String message = "...";
 
   vibrate() {
     if (Theme.of(context).platform == TargetPlatform.android) {
@@ -111,9 +115,27 @@ class _MyMainPageState extends State<MyMainPage> {
     }
   }
 
+  checkStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    //get if the user has already saved local data
+    final bool? dataNeeded = prefs.getBool('hln_setup');
+
+    if(dataNeeded == true) {
+      //user already has local data saved
+      setState(() {
+        message = "Welcome, ${prefs.getString('hln_name')}";
+      });
+    } else {
+      //user doesn't have local data saved
+      message = "Launching setup...";
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    checkStatus();
 
     Timer(Duration(milliseconds: 1000), () {
       setState(() {
@@ -176,9 +198,9 @@ class _MyMainPageState extends State<MyMainPage> {
                   textAlign: TextAlign.center,
                 ),
 
-                const Text(
-                  'Pre-launch checks...',
-                  style: TextStyle(
+                Text(
+                  message,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Color(0xFF7F698C),
                     fontWeight: FontWeight.w700,
