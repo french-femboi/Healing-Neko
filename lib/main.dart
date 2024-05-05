@@ -39,8 +39,8 @@ class MyMain extends StatelessWidget {
       theme: themeData(),
       home: const MyMainPage(title: 'Healing Neko'),
       routes: {
-        '/pre': (context) => DataSavePage(),
-        '/home': (context) => homePagePage(),
+        '/pre': (context) => const DataSavePage(),
+        '/home': (context) => const homePagePage(),
       },
     );
   }
@@ -92,12 +92,12 @@ Future<void> initializeWindow(BuildContext context) async {
 
   if(dataNeeded == true) {
     //user already has local data saved
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushNamed(context, '/home');
     });
   } else {
     //user doesn't have local data saved
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushNamed(context, '/pre');
     });
   }
@@ -137,7 +137,7 @@ class _MyMainPageState extends State<MyMainPage> {
     super.initState();
     checkStatus();
 
-    Timer(Duration(milliseconds: 1000), () {
+    Timer(const Duration(milliseconds: 1000), () {
       setState(() {
         _showColumn = true;
       });

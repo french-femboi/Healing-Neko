@@ -12,7 +12,7 @@
 // based on ideas from firebird496
 // ----------------------------------------------------------------------------
 //
-// ignore_for_file: unused_local_variable, depend_on_referenced_packages
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,7 +38,7 @@ class MyMain extends StatelessWidget {
       theme: themeData(),
       home: const DataSavePage(),
       routes: {
-        '/home': (context) => homePagePage(),
+        '/home': (context) => const homePagePage(),
       },
     );
   }
@@ -88,6 +88,7 @@ Future<void> initializeWindow(BuildContext context) async {
 class _DataSavePageState extends State<DataSavePage> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _hobbyController = TextEditingController();
+  TextEditingController _petController = TextEditingController();
 
   vibrate() {
     if (Theme.of(context).platform == TargetPlatform.android) {
@@ -100,11 +101,13 @@ class _DataSavePageState extends State<DataSavePage> {
     //get the string data from the textfields
     String v_name = _nameController.text;
     String v_hobbies = _hobbyController.text;
+    String v_petname = _petController.text;
 
     //save all the local data into sharedpreferences
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('hln_name', v_name);
     await prefs.setString('hln_hobbies', v_hobbies);
+    await prefs.setString('hln_petName', v_petname);
     await prefs.setBool('hln_setup', true);
 
     //after saving everything successfully redirect to the homepage
@@ -181,7 +184,7 @@ class _DataSavePageState extends State<DataSavePage> {
               const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Take the time to configure the app to your wishes :) We will add more customization features soon. Remember you do not have to put in your real name, just use your preferred name :)",
+                  "Take the time to configure the app to your wishes :) We will add more customization features soon. Remember you do not have to put in your real name, just use your preferred name :) You'll have a neko pet to take care of as well! Give it a good name.",
                   style: TextStyle(
                     fontSize: 18,
                     color: Color(0xFF7F698C),
@@ -233,6 +236,28 @@ class _DataSavePageState extends State<DataSavePage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _petController,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: "Pet name",
+                  hintStyle: const TextStyle(color: Color(0xFFAE7DEE)),
+                  labelStyle: const TextStyle(color: Color(0xFFAE7DEE)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(color: Color(0xFF61586D)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(color: Color(0xFF61586D)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(color: Color(0xFF61586D)),
+                  ),
+                ),
+              ),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
@@ -242,7 +267,7 @@ class _DataSavePageState extends State<DataSavePage> {
                     completeSetup();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF221B2E),
+                    backgroundColor: const Color(0xFF221B2E),
                   ),
                   child: const Text(
                     "Save data",

@@ -12,7 +12,7 @@
 // based on ideas from firebird496
 // ----------------------------------------------------------------------------
 //
-// ignore_for_file: unused_local_variable, depend_on_referenced_packages
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages, unused_field, prefer_final_fields, camel_case_types, use_key_in_widget_constructors
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -88,6 +88,7 @@ class _homePagePageState extends State<homePagePage> {
   TextEditingController _hobbyController = TextEditingController();
   String username = "...";
   String welcomeMessage = "...";
+  String petName = "...";
   var _currentIndex = 0;
 
   //navigation states
@@ -118,6 +119,7 @@ class _homePagePageState extends State<homePagePage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       username = prefs.getString('hln_name') ?? "null";
+      petName = prefs.getString('hln_petName') ?? "null";
     });
   }
 
@@ -267,7 +269,7 @@ class _homePagePageState extends State<homePagePage> {
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          "$welcomeMessage",
+                          welcomeMessage,
                           style: const TextStyle(
                             fontSize: 18,
                             color: Color(0xFF7F698C),
@@ -301,6 +303,102 @@ class _homePagePageState extends State<homePagePage> {
                       width: double.infinity,
                       child: Text(
                         "Check out your healing tree here, or go through a new one :)",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF7F698C),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: nekoVis,
+              child: Expanded(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        petName,
+                        style: const TextStyle(
+                          fontSize: 40,
+                          color: Color(0xFFC8ACEE),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "Take good care of $petName :3",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF7F698C),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: sosVis,
+              child: Expanded(
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "Emergency toolbox",
+                        style: TextStyle(
+                          fontSize: 40,
+                          color: Color(0xFFC8ACEE),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "Are you okay $username?",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF7F698C),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: settingsVis,
+              child: const Expanded(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "App settings",
+                        style: TextStyle(
+                          fontSize: 40,
+                          color: Color(0xFFC8ACEE),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "Customize the app to you needs, and change your saved data.",
                         style: TextStyle(
                           fontSize: 18,
                           color: Color(0xFF7F698C),
