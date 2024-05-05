@@ -1,6 +1,6 @@
 # Healing Neko
 
-Feeling down? Our neko will help you to feel better! Check out Healing Neko today :3
+Feeling a bit down, are we? No worries at all, fren! Our marvelous Healing Neko app is here to sprinkle some joy and warmth into your day! Whether you're feeling blue or just need a little pick-me-up, our adorable neko companion is ready to lend a paw and whisk away those worries. 🐾✨ So why wait? Dive into the world of Healing Neko today and let the purr-fect remedy for your soul whisk you away to a land of smiles and sunshine! 🌞😺
 
 ## Built With
 
@@ -19,11 +19,11 @@ We use [GIT](https://git-scm.com/) for versioning and code review.
 
 ## Authors & Contributors
 
-  - **Yumithecat (Tom Bugada)** - *Working on the code* - [Porfolio](https://yumithecat.eu)
+  - **Catpawz (Tom Bugada)** - *Working on the code* - [Porfolio](https://catpawz.eu)
   - **Billie Thompson** - *Provided README Template* - [PurpleBooth](https://github.com/PurpleBooth)
 
 ## License
 
-This project is licensed under the [APACHE-2.0](LICENSE)
-GENERAL PUBLIC LICENSE - see the [LICENSE.md](LICENSE) file for
+This project is licensed under the [CC-BY-NC-4.0](LICENSE)
+Creative Commons Public License - see the [LICENSE.md](LICENSE) file for
 details
