@@ -12,6 +12,7 @@ Feeling a bit down, are we? No worries at all, fren! Our marvelous Healing Neko 
   - [KOTLIN](https://kotlinlang.org/) - Android mechanics
   - [XML](https://www.w3schools.com/xml/) - Android mechanics
   - [SWIFT](https://developer.apple.com/swift/) - IOS mechanics
+  - [Ambience](https://git.dynapaw.eu/fluffy_catpawz/healing_neko/src/branch/production/soundscapes.md) - Ambient music for the app, check out the credits!
 
 ## Versioning
 
@@ -21,6 +22,7 @@ We use [GIT](https://git-scm.com/) for versioning and code review.
 
   - **Catpawz (Tom Bugada)** - *Working on the code* - [Porfolio](https://catpawz.eu)
   - **Billie Thompson** - *Provided README Template* - [PurpleBooth](https://github.com/PurpleBooth)
+  - **Everyone listed in the Ambience file** - *Provided songs for the soundscapes* - [Link](https://git.dynapaw.eu/fluffy_catpawz/healing_neko/src/branch/production/soundscapes.md)
 
 ## License
 

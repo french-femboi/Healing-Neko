@@ -367,7 +367,7 @@ class _homePagePageState extends State<homePagePage> {
                       width: double.infinity,
                       child: Text(
                         "Are you okay $username?",
-                        style: const TextStyle(
+                        style: const TextStyle(Sunday 05 May 08:18:36
                           fontSize: 18,
                           color: Color(0xFF7F698C),
                           fontWeight: FontWeight.w700,
