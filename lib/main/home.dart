@@ -70,7 +70,6 @@ Future<void> initializeWindow(BuildContext context) async {
 class _homePagePageState extends State<homePagePage> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _hobbyController = TextEditingController();
-  AudioPlayer player = AudioPlayer();
   String username = "...";
   String welcomeMessage = "...";
   String petName = "...";
@@ -134,11 +133,10 @@ class _homePagePageState extends State<homePagePage> {
     });
   }
 
-  playBackMusic(arg1) {
+  playBackMusic(arg1) async {
     if (arg1 == 01){
-      player.setReleaseMode(ReleaseMode.loop);
-      player.setSource(AssetSource('assets/soundscapes/01.mp3'));
-      player.resume();
+      final player = AudioPlayer();
+      player.play(AssetSource('soundscapes/01.mp3'));
     } else if (arg1 == 02){
 
     } else if (arg1 == 03){
