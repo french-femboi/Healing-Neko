@@ -24,6 +24,6 @@ We use [GIT](https://git-scm.com/) for versioning and code review.
 
 ## License
 
-This project is licensed under the [APACHE-2.0](LICENSE)
-GENERAL PUBLIC LICENSE - see the [LICENSE.md](LICENSE) file for
+This project is licensed under the [CC-BY-NC-4.0](LICENSE)
+Creative Commons Public License - see the [LICENSE.md](LICENSE) file for
 details
