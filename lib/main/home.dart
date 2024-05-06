@@ -133,28 +133,63 @@ class _homePagePageState extends State<homePagePage> {
     });
   }
 
-  playBackMusic(arg1) async {
-    if (arg1 == 01){
-      final player = AudioPlayer();
-      player.play(AssetSource('soundscapes/01.mp3'));
-    } else if (arg1 == 02){
+  final player = AudioPlayer();
 
-    } else if (arg1 == 03){
-      
-    } else if (arg1 == 04){
-      
-    } else if (arg1 == 05){
-      
-    } else if (arg1 == 06){
-      
-    } else if (arg1 == 07){
-      
-    } else if (arg1 == 08){
-      
-    } else if (arg1 == 09){
-      
-    } else if (arg1 == 10){
-      
+  stopMusic() async {
+    await player.stop();
+  }
+
+  playBackMusic(arg1) async {
+    if (arg1 == 01) {
+      stopMusic();
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource('soundscapes/Meydan_-_Away.mp3'));
+      await player.resume();
+    } else if (arg1 == 02) {
+      stopMusic();
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource('soundscapes/Meydän_-_Freezing_but_warm.mp3'));
+      await player.resume();
+    } else if (arg1 == 03) {
+      stopMusic();
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource('soundscapes/Meydän_-_Elk.mp3'));
+      await player.resume();
+    } else if (arg1 == 04) {
+      stopMusic();
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource('soundscapes/Lee_Rosevere_-_Expectations.mp3'));
+      await player.resume();
+    } else if (arg1 == 05) {
+      stopMusic();
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource('soundscapes/Lee_Rosevere_-_Featherlight.mp3'));
+      await player.resume();
+    } else if (arg1 == 06) {
+      stopMusic();
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource('soundscapes/Lee_Rosevere_-_We_Dont_Know_How_it_Ends.mp3'));
+      await player.resume();
+    } else if (arg1 == 07) {
+      stopMusic();
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource('soundscapes/Pierce_Murphy_-_Galilee.mp3'));
+      await player.resume();
+    } else if (arg1 == 08) {
+      stopMusic();
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource('soundscapes/Pierce_Murphy_-_Devil_In_A_Falling_Sky.mp3'));
+      await player.resume();
+    } else if (arg1 == 09) {
+      stopMusic();
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource('soundscapes/Pierce_Murphy_-_This_Dream_I_Had.mp3'));
+      await player.resume();
+    } else if (arg1 == 10) {
+      stopMusic();
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource('soundscapes/Beat_Mekanik_-_Just_a_Taste.mp3'));
+      await player.resume();
     }
   }
 
@@ -498,10 +533,12 @@ class _homePagePageState extends State<homePagePage> {
                                           child: ElevatedButton(
                                             onPressed: () {
                                               vibrate();
+                                              stopMusic();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "Stop music",
@@ -535,11 +572,13 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              playBackMusic(01);
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "Away by Meydän",
@@ -558,11 +597,13 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              playBackMusic(02);
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "Freezing but warm by Meydän",
@@ -581,11 +622,13 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              playBackMusic(03);
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "Elk by Meydän",
@@ -604,11 +647,13 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              playBackMusic(04);
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "Expectations by Lee Rosevere",
@@ -627,11 +672,13 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              playBackMusic(05);
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "Featherlight by Lee Rosevere",
@@ -650,11 +697,13 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              playBackMusic(06);
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "We Don't Know How it Ends by Lee Rosevere",
@@ -688,11 +737,13 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              playBackMusic(07);
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "Galilee by Pierce Murphy",
@@ -711,11 +762,13 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              playBackMusic(08);
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "Devil In A Falling Sky by Pierce Murphy",
@@ -734,11 +787,13 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              playBackMusic(09);
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "This Dream I Had by Pierce Murphy",
@@ -757,11 +812,13 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              playBackMusic(10);
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(
-                                                  255, 61, 50, 80),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
                                             ),
                                             child: const Text(
                                               "Just a Taste by Beat Mekanik",
