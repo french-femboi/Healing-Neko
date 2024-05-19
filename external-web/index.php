@@ -11,7 +11,7 @@
 
 
 ⠀           (\ __ /)
-            ( UwU )               Mrrrowwwww
+            (  UwU )               Mrrrowwwww
           ＿ノ     ＼＿ 
        /　`/ ⌒Ｙ⌒ Ｙ　 \
       ( 　(三ヽ人　 /　 　|

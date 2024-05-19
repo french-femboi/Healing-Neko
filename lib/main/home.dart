@@ -140,57 +140,12 @@ class _homePagePageState extends State<homePagePage> {
   }
 
   playBackMusic(arg1) async {
-    if (arg1 == 01) {
-      stopMusic();
-      await player.setReleaseMode(ReleaseMode.loop);
-      await player.setSource(AssetSource('soundscapes/Meydan_-_Away.mp3'));
-      await player.resume();
-    } else if (arg1 == 02) {
-      stopMusic();
-      await player.setReleaseMode(ReleaseMode.loop);
-      await player.setSource(AssetSource('soundscapes/Meydän_-_Freezing_but_warm.mp3'));
-      await player.resume();
-    } else if (arg1 == 03) {
-      stopMusic();
-      await player.setReleaseMode(ReleaseMode.loop);
-      await player.setSource(AssetSource('soundscapes/Meydän_-_Elk.mp3'));
-      await player.resume();
-    } else if (arg1 == 04) {
-      stopMusic();
-      await player.setReleaseMode(ReleaseMode.loop);
-      await player.setSource(AssetSource('soundscapes/Lee_Rosevere_-_Expectations.mp3'));
-      await player.resume();
-    } else if (arg1 == 05) {
-      stopMusic();
-      await player.setReleaseMode(ReleaseMode.loop);
-      await player.setSource(AssetSource('soundscapes/Lee_Rosevere_-_Featherlight.mp3'));
-      await player.resume();
-    } else if (arg1 == 06) {
-      stopMusic();
-      await player.setReleaseMode(ReleaseMode.loop);
-      await player.setSource(AssetSource('soundscapes/Lee_Rosevere_-_We_Dont_Know_How_it_Ends.mp3'));
-      await player.resume();
-    } else if (arg1 == 07) {
-      stopMusic();
-      await player.setReleaseMode(ReleaseMode.loop);
-      await player.setSource(AssetSource('soundscapes/Pierce_Murphy_-_Galilee.mp3'));
-      await player.resume();
-    } else if (arg1 == 08) {
-      stopMusic();
-      await player.setReleaseMode(ReleaseMode.loop);
-      await player.setSource(AssetSource('soundscapes/Pierce_Murphy_-_Devil_In_A_Falling_Sky.mp3'));
-      await player.resume();
-    } else if (arg1 == 09) {
-      stopMusic();
-      await player.setReleaseMode(ReleaseMode.loop);
-      await player.setSource(AssetSource('soundscapes/Pierce_Murphy_-_This_Dream_I_Had.mp3'));
-      await player.resume();
-    } else if (arg1 == 10) {
-      stopMusic();
-      await player.setReleaseMode(ReleaseMode.loop);
-      await player.setSource(AssetSource('soundscapes/Beat_Mekanik_-_Just_a_Taste.mp3'));
-      await player.resume();
-    }
+    stopMusic();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('hln_song', arg1);
+    await player.setReleaseMode(ReleaseMode.loop);
+    await player.setSource(AssetSource(arg1));
+    await player.resume();
   }
 
   @override
@@ -572,7 +527,7 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              playBackMusic(01);
+                                              playBackMusic('soundscapes/Meydan_-_Away.mp3');
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -597,7 +552,7 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              playBackMusic(02);
+                                              playBackMusic('soundscapes/Meydän_-_Freezing_but_warm.mp3');
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -622,7 +577,7 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              playBackMusic(03);
+                                              playBackMusic('soundscapes/Meydän_-_Elk.mp3');
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -647,7 +602,7 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              playBackMusic(04);
+                                              playBackMusic('soundscapes/Lee_Rosevere_-_Expectations.mp3');
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -672,7 +627,7 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              playBackMusic(05);
+                                              playBackMusic('soundscapes/Lee_Rosevere_-_Featherlight.mp3');
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -697,7 +652,7 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              playBackMusic(06);
+                                              playBackMusic('soundscapes/Lee_Rosevere_-_We_Dont_Know_How_it_Ends.mp3');
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -737,7 +692,7 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              playBackMusic(07);
+                                              playBackMusic('soundscapes/Pierce_Murphy_-_Galilee.mp3');
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -762,7 +717,7 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              playBackMusic(08);
+                                              playBackMusic('soundscapes/Pierce_Murphy_-_Devil_In_A_Falling_Sky.mp3');
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -787,7 +742,7 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              playBackMusic(09);
+                                              playBackMusic('soundscapes/Pierce_Murphy_-_This_Dream_I_Had.mp3');
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -812,7 +767,7 @@ class _homePagePageState extends State<homePagePage> {
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              playBackMusic(10);
+                                              playBackMusic('soundscapes/Beat_Mekanik_-_Just_a_Taste.mp3');
                                               vibrate();
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -852,7 +807,7 @@ class _homePagePageState extends State<homePagePage> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF221B2E),
+                          backgroundColor: const Color(0xFF332841),
                         ),
                         child: const Text(
                           "Select background music",
