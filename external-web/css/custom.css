@@ -1,0 +1,186 @@
+body {
+    font-family: 'Quicksand', sans-serif;
+    padding: 0px;
+    background-color: #121D21;
+}
+
+.DL-nav-btn-01 {
+    background-color: #3fa6a7;
+    color: white;
+    border: 0px;
+    transition: 1s;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.DL-nav-btn-01:hover {
+    background-color: #336677;
+    color: white;
+    border: 0px;
+    transition: 1s;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.DL-nav-btn-02 {
+    background-color: #3fa6a7;
+    color: white;
+    border: 0px;
+    transition: 1s;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.DL-nav-btn-02:hover {
+    background-color: #2f4858;
+    color: white;
+    border: 0px;
+    transition: 1s;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.DL-nopamargin {
+    margin: 0px;
+    padding: 0px;
+}
+
+.DL-lang {
+    color: #3fa6a7;
+    transition: 1s;
+}
+
+.DL-lang:hover {
+    color: #4fcfd1;
+    transition: 1s;
+}
+
+.DL-people {
+    background-color: #2f4858;
+    color: white;
+    transition: 1s;
+}
+
+.DL-people:hover {
+    background-color: #3f5e72;
+    color: white;
+    transition: 1s;
+}
+
+.select {
+    background-color: #3fa6a7;
+    color: white;
+    padding: 6px;
+    border-radius: 25px;
+    border: Opx;
+}
+
+
+body .vertical-centered-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+body .vertical-centered-box:after {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+body .vertical-centered-box .content {
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    font-size: 0;
+}
+
+* {
+    transition: all .3s;
+}
+
+.loader-circle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    margin-left: -60px;
+    margin-top: -60px;
+}
+
+.loader-line-mask {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 60px;
+    height: 120px;
+    margin-left: -60px;
+    margin-top: -60px;
+    overflow: hidden;
+    transform-origin: 60px 60px;
+    -webkit-mask-image: -webkit-linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+    animation: rotate 1.2s infinite linear;
+}
+
+.loader-line-mask .loader-line {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+#particles-background,
+#particles-foreground {
+    left: -51%;
+    top: -51%;
+    width: 201%;
+    height: 201%;
+    transform: scale3d(.5, .5, 1);
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+  
+  .content {
+    /* This is the magic bit for Firefox */
+    scrollbar-width: none;
+  }
+  
+  .content::-webkit-scrollbar {
+    /* This is the magic bit for WebKit */
+    display: none;
+  }

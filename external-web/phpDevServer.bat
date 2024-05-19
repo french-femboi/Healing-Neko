@@ -1,0 +1,1 @@
+E:\php-8.2.11-Win32-vs16-x86\php.exe -S 0.0.0.0:8003 -t "E:\VSCODE\healing-neko\healing_neko\external-web"
