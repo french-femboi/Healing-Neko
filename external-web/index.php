@@ -36,7 +36,7 @@
     <meta property="og:title" content="Healing Neko">
     <meta property="og:description" content="Feeling a bit down, are we? No worries at all, fren! Our marvelous Healing Neko app is here to sprinkle some joy and warmth into your day!">
     <meta name="description" content="Feeling a bit down, are we? No worries at all, fren! Our marvelous Healing Neko app is here to sprinkle some joy and warmth into your day!" />
-    <meta property="og:image" content="https://schultrainer.com/images/neko_love.png">
+    <meta property="og:image" content="/images/neko_love.png">
     <meta content="#874B9E" data-react-helmet="true" name="theme-color">
 
     <!-- Font -->
