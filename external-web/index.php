@@ -188,16 +188,16 @@
 
                 <ul class="nav nav-tabs nav-justified" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#assess">Assessments</a>
+                        <a class="nav-link active" data-toggle="tab" href="#assess">AS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#pet">Neko pet</a>
+                        <a class="nav-link" data-toggle="tab" href="#pet">NP</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#help">Help</a>
+                        <a class="nav-link" data-toggle="tab" href="#help">HL</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#foryou">Just for you</a>
+                        <a class="nav-link" data-toggle="tab" href="#foryou">JFY</a>
                     </li>
                 </ul>
                 <div class="tab-content">
