@@ -89,6 +89,7 @@ class _homePagePageState extends State<homePagePage> {
     getData();
     //generate a warm welcome message
     generateMessage();
+    initializeMusic();
     initializeWindow(context);
   }
 
@@ -134,9 +135,16 @@ class _homePagePageState extends State<homePagePage> {
   }
 
   final player = AudioPlayer();
+  final pet1 = AudioPlayer();
 
   stopMusic() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('hln_song', '-');
     await player.stop();
+  }
+
+  stopNekoSounds() async {
+    await pet1.stop();
   }
 
   playBackMusic(arg1) async {
@@ -146,6 +154,20 @@ class _homePagePageState extends State<homePagePage> {
     await player.setReleaseMode(ReleaseMode.loop);
     await player.setSource(AssetSource(arg1));
     await player.resume();
+  }
+
+  initializeMusic() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await player.setReleaseMode(ReleaseMode.loop);
+    await player.setSource(AssetSource(prefs.getString('hln_song') ?? "-"));
+    await player.resume();
+  }
+
+  nekoSounds() async {
+    await pet1.setReleaseMode(ReleaseMode.loop);
+    await pet1.setVolume(0.07);
+    await pet1.setSource(AssetSource("neko/purr.mp3"));
+    await pet1.resume();
   }
 
   @override
@@ -210,6 +232,11 @@ class _homePagePageState extends State<homePagePage> {
             nekoVis = false;
             sosVis = false;
             settingsVis = false;
+          }
+          if(_currentIndex == 2) {
+            nekoSounds();
+          } else {
+            stopNekoSounds();
           }
         },
         backgroundColor: const Color(0xFF2B2331),

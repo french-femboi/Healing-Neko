@@ -46,6 +46,7 @@ flutter:
     - assets/img/
     - assets/nekos/
     - assets/soundscapes/
+    - assets/neko/
   fonts:
     - family: Quicksand
       fonts:

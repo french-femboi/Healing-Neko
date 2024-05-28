@@ -162,7 +162,7 @@ class _DataSavePageState extends State<DataSavePage> {
               const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Welcome to Healing Neko, before you start using the app, please fill out some data for customization. This data will be saved locally on your device, and can be deleted at any time :]",
+                  "Welcome to Healing Neko, before you start using the app, please fill out some data for customization. This data will be saved locally on your device, and can be deleted at any time.",
                   style: TextStyle(
                     fontSize: 18,
                     color: Color(0xFF7F698C),
@@ -173,7 +173,7 @@ class _DataSavePageState extends State<DataSavePage> {
               const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Healing Neko uses server connections to fetch data for the app's content and algorithm. The connection is encrypted, and no data is shared from your device. There is absolutely no privacy risk, you're safe with us :)",
+                  "Healing Neko uses server connections to fetch data for the app's content and algorithm. The connection is encrypted, and no data is shared from your device. There is absolutely no privacy risk, you're safe with us!",
                   style: TextStyle(
                     fontSize: 18,
                     color: Color(0xFF7F698C),
@@ -184,7 +184,7 @@ class _DataSavePageState extends State<DataSavePage> {
               const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Take the time to configure the app to your wishes :) We will add more customization features soon. Remember you do not have to put in your real name, just use your preferred name :) You'll have a neko pet to take care of as well! Give it a good name.",
+                  "Take the time to configure the app to your wishes. We will add more customization features soon. Remember you do not have to put in your real name, just use your preferred name :) You'll have a neko pet to take care of as well! Give it a good name.",
                   style: TextStyle(
                     fontSize: 18,
                     color: Color(0xFF7F698C),
