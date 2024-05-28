@@ -177,8 +177,8 @@ class _homePagePageState extends State<homePagePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarColor: Color(0xFF2B2331),
     ));
 
     return Scaffold(
