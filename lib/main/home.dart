@@ -165,7 +165,7 @@ class _homePagePageState extends State<homePagePage> {
 
   nekoSounds() async {
     await pet1.setReleaseMode(ReleaseMode.loop);
-    await pet1.setVolume(0.07);
+    await pet1.setVolume(0.2);
     await pet1.setSource(AssetSource("neko/purr.mp3"));
     await pet1.resume();
   }
