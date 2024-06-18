@@ -73,6 +73,7 @@ class _homePagePageState extends State<homePagePage> {
   String username = "...";
   String welcomeMessage = "...";
   String petName = "...";
+  String petFeeling = "happy";
   var _currentIndex = 0;
 
   //navigation states
@@ -149,18 +150,26 @@ class _homePagePageState extends State<homePagePage> {
 
   playBackMusic(arg1) async {
     stopMusic();
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('hln_song', arg1);
-    await player.setReleaseMode(ReleaseMode.loop);
-    await player.setSource(AssetSource(arg1));
-    await player.resume();
+    if(arg1 == "-"){
+      //plaback not enabled
+    } else {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('hln_song', arg1);
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource(arg1));
+      await player.resume();
+    }
   }
 
   initializeMusic() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await player.setReleaseMode(ReleaseMode.loop);
-    await player.setSource(AssetSource(prefs.getString('hln_song') ?? "-"));
-    await player.resume();
+    if(prefs.getString('hln_song') == "-"){
+      //playback not enabled
+    } else {
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource(prefs.getString('hln_song') ?? "-"));
+      await player.resume();
+    }
   }
 
   nekoSounds() async {
@@ -391,6 +400,23 @@ class _homePagePageState extends State<homePagePage> {
                       indent: 0,
                       endIndent: 0,
                       color: Color(0xFF61586D),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 220,
+                      child: Image.asset('assets/img/CatHappyWhite.png'),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "$petName is currently $petFeeling",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF7F698C),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                   ],
                 ),

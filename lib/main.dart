@@ -171,7 +171,7 @@ class _MyMainPageState extends State<MyMainPage> {
 
                 SizedBox(
                   height: 220,
-                  child: Image.asset('assets/img/logo1.png'),
+                  child: Image.asset('assets/img/CatLoveWhite.png'),
                 ),
 
                 const SizedBox(height: 40),
