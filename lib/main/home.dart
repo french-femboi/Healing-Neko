@@ -12,14 +12,17 @@
 // based on ideas from firebird496
 // ----------------------------------------------------------------------------
 //
-// ignore_for_file: unused_local_variable, depend_on_referenced_packages, unused_field, prefer_final_fields, camel_case_types, use_key_in_widget_constructors
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages, unused_field, prefer_final_fields, camel_case_types, use_key_in_widget_constructors, no_leading_underscores_for_local_identifiers
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:healing_neko/internal/mdreader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:bottom_sheet/bottom_sheet.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -43,28 +46,10 @@ class homePage extends StatelessWidget {
 }
 
 ThemeData themeData() {
-  Color primaryColor = const Color(0xFF0EF6CC);
   Color accentColor = const Color(0xFF3A4F50);
   Color backgroundColor = const Color(0xFF201B23);
 
-  MaterialColor primarySwatch = MaterialColor(
-    primaryColor.value,
-    <int, Color>{
-      50: primaryColor.withOpacity(0.1),
-      100: primaryColor.withOpacity(0.2),
-      200: primaryColor.withOpacity(0.3),
-      300: primaryColor.withOpacity(0.4),
-      400: primaryColor.withOpacity(0.5),
-      500: primaryColor.withOpacity(0.6),
-      600: primaryColor.withOpacity(0.7),
-      700: primaryColor.withOpacity(0.8),
-      800: primaryColor.withOpacity(0.9),
-      900: primaryColor.withOpacity(1.0),
-    },
-  );
-
   return ThemeData(
-    primarySwatch: primarySwatch,
     hintColor: accentColor,
     fontFamily: 'Quicksand',
     scaffoldBackgroundColor: backgroundColor,
@@ -89,6 +74,7 @@ class _homePagePageState extends State<homePagePage> {
   String username = "...";
   String welcomeMessage = "...";
   String petName = "...";
+  String petFeeling = "happy";
   var _currentIndex = 0;
 
   //navigation states
@@ -105,6 +91,7 @@ class _homePagePageState extends State<homePagePage> {
     getData();
     //generate a warm welcome message
     generateMessage();
+    initializeMusic();
     initializeWindow(context);
   }
 
@@ -121,6 +108,11 @@ class _homePagePageState extends State<homePagePage> {
       username = prefs.getString('hln_name') ?? "null";
       petName = prefs.getString('hln_petName') ?? "null";
     });
+  }
+
+  showMd(arg1) async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('hln_mdfile', arg1);
   }
 
   generateMessage() {
@@ -149,6 +141,50 @@ class _homePagePageState extends State<homePagePage> {
     });
   }
 
+  final player = AudioPlayer();
+  final pet1 = AudioPlayer();
+
+  stopMusic() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('hln_song', '-');
+    await player.stop();
+  }
+
+  stopNekoSounds() async {
+    await pet1.stop();
+  }
+
+  playBackMusic(arg1) async {
+    stopMusic();
+    if(arg1 == "-"){
+      //plaback not enabled
+    } else {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('hln_song', arg1);
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource(arg1));
+      await player.resume();
+    }
+  }
+
+  initializeMusic() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if((prefs.getString('hln_song')??"-") == "-"){
+      //playback not enabled
+    } else {
+      await player.setReleaseMode(ReleaseMode.loop);
+      await player.setSource(AssetSource(prefs.getString('hln_song') ?? "-"));
+      await player.resume();
+    }
+  }
+
+  nekoSounds() async {
+    await pet1.setReleaseMode(ReleaseMode.loop);
+    await pet1.setVolume(0.2);
+    await pet1.setSource(AssetSource("neko/purr.mp3"));
+    await pet1.resume();
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -156,8 +192,8 @@ class _homePagePageState extends State<homePagePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarColor: Color(0xFF2B2331),
     ));
 
     return Scaffold(
@@ -211,6 +247,11 @@ class _homePagePageState extends State<homePagePage> {
             nekoVis = false;
             sosVis = false;
             settingsVis = false;
+          }
+          if (_currentIndex == 2) {
+            nekoSounds();
+          } else {
+            stopNekoSounds();
           }
         },
         backgroundColor: const Color(0xFF2B2331),
@@ -277,6 +318,14 @@ class _homePagePageState extends State<homePagePage> {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 10),
+                      const Divider(
+                        height: 10,
+                        thickness: 1,
+                        indent: 0,
+                        endIndent: 0,
+                        color: Color(0xFF61586D),
+                      ),
                     ],
                   ),
                 ),
@@ -310,6 +359,14 @@ class _homePagePageState extends State<homePagePage> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10),
+                    const Divider(
+                      height: 10,
+                      thickness: 1,
+                      indent: 0,
+                      endIndent: 0,
+                      color: Color(0xFF61586D),
+                    ),
                   ],
                 ),
               ),
@@ -342,6 +399,31 @@ class _homePagePageState extends State<homePagePage> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10),
+                    const Divider(
+                      height: 10,
+                      thickness: 1,
+                      indent: 0,
+                      endIndent: 0,
+                      color: Color(0xFF61586D),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 220,
+                      child: Image.asset('assets/img/CatHappyWhite.png'),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "$petName is currently $petFeeling",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF7F698C),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -367,10 +449,61 @@ class _homePagePageState extends State<homePagePage> {
                       width: double.infinity,
                       child: Text(
                         "Are you okay $username?",
-                        style: const TextStyle(Sunday 05 May 08:18:36
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Color(0xFF7F698C),
                           fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Divider(
+                      height: 10,
+                      thickness: 1,
+                      indent: 0,
+                      endIndent: 0,
+                      color: Color(0xFF61586D),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 61, 50, 80),
+                        ),
+                        child: const Text(
+                          "Online toolkit",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 195, 178, 226),
+                            fontFamily: 'quicksand',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 61, 50, 80),
+                        ),
+                        child: const Text(
+                          "Catpawz community",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 195, 178, 226),
+                            fontFamily: 'quicksand',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.start,
                         ),
                       ),
                     ),
@@ -380,10 +513,10 @@ class _homePagePageState extends State<homePagePage> {
             ),
             Visibility(
               visible: settingsVis,
-              child: const Expanded(
+              child: Expanded(
                 child: Column(
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       width: double.infinity,
                       child: Text(
                         "App settings",
@@ -394,11 +527,500 @@ class _homePagePageState extends State<homePagePage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    SizedBox(
+                    const SizedBox(height: 10),
+                    const SizedBox(
                       width: double.infinity,
                       child: Text(
                         "Customize the app to you needs, and change your saved data.",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFF7F698C),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Divider(
+                      height: 10,
+                      thickness: 1,
+                      indent: 0,
+                      endIndent: 0,
+                      color: Color(0xFF61586D),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                          Widget _buildBottomSheet(
+                            BuildContext context,
+                            ScrollController scrollController,
+                            double bottomSheetOffset,
+                          ) {
+                            return Material(
+                                color: const Color(0xFF2B2331),
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF2B2331),
+                                  ),
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: ListView(
+                                      controller: scrollController,
+                                      shrinkWrap: true,
+                                      children: [
+                                        const Text(
+                                          'MUSIC SELECTION',
+                                          style: TextStyle(
+                                              color: Color(0xFFAE7DEE),
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        const Text(
+                                          'Select the background music you want while using Healing Neko! Also check out the amazing artists who made these songs :3',
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 113, 97, 126),
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              vibrate();
+                                              stopMusic();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "Stop music",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 30),
+                                        const Text(
+                                          'AMBIENT MUSIC',
+                                          style: TextStyle(
+                                              color: Color(0xFFAE7DEE),
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        const Text(
+                                          "Music by Meydän and Lee Rosevere",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 113, 97, 126),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        const SizedBox(height: 15),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              playBackMusic(
+                                                  'soundscapes/Meydan_-_Away.mp3');
+                                              vibrate();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "Away by Meydän",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              playBackMusic(
+                                                  'soundscapes/Meydän_-_Freezing_but_warm.mp3');
+                                              vibrate();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "Freezing but warm by Meydän",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              playBackMusic(
+                                                  'soundscapes/Meydän_-_Elk.mp3');
+                                              vibrate();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "Elk by Meydän",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              playBackMusic(
+                                                  'soundscapes/Lee_Rosevere_-_Expectations.mp3');
+                                              vibrate();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "Expectations by Lee Rosevere",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              playBackMusic(
+                                                  'soundscapes/Lee_Rosevere_-_Featherlight.mp3');
+                                              vibrate();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "Featherlight by Lee Rosevere",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              playBackMusic(
+                                                  'soundscapes/Lee_Rosevere_-_We_Dont_Know_How_it_Ends.mp3');
+                                              vibrate();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "We Don't Know How it Ends by Lee Rosevere",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 30),
+                                        const Text(
+                                          'R&B and Soul',
+                                          style: TextStyle(
+                                              color: Color(0xFFAE7DEE),
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        const Text(
+                                          "Music by Pierce Murphy and Mekanik",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 113, 97, 126),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        const SizedBox(height: 15),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              playBackMusic(
+                                                  'soundscapes/Pierce_Murphy_-_Galilee.mp3');
+                                              vibrate();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "Galilee by Pierce Murphy",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              playBackMusic(
+                                                  'soundscapes/Pierce_Murphy_-_Devil_In_A_Falling_Sky.mp3');
+                                              vibrate();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "Devil In A Falling Sky by Pierce Murphy",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              playBackMusic(
+                                                  'soundscapes/Pierce_Murphy_-_This_Dream_I_Had.mp3');
+                                              vibrate();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "This Dream I Had by Pierce Murphy",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              playBackMusic(
+                                                  'soundscapes/Beat_Mekanik_-_Just_a_Taste.mp3');
+                                              vibrate();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 61, 50, 80),
+                                            ),
+                                            child: const Text(
+                                              "Just a Taste by Beat Mekanik",
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 195, 178, 226),
+                                                fontFamily: 'quicksand',
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
+                                ));
+                          }
+
+                          showFlexibleBottomSheet(
+                            minHeight: 0,
+                            initHeight: 0.8,
+                            maxHeight: 0.8,
+                            context: context,
+                            builder: _buildBottomSheet,
+                            isExpand: false,
+                            bottomSheetBorderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(
+                                  20.0), // Top left corner radius
+                              topRight: Radius.circular(
+                                  20.0), // Top right corner radius
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF332841),
+                        ),
+                        child: const Text(
+                          "Select background music",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 171, 145, 218),
+                            fontFamily: 'quicksand',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                          showMd('soundscapes.md');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MyMd()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF332841),
+                        ),
+                        child: const Text(
+                          "Music credits / licences",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 171, 145, 218),
+                            fontFamily: 'quicksand',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Divider(
+                      height: 10,
+                      thickness: 1,
+                      indent: 0,
+                      endIndent: 0,
+                      color: Color(0xFF61586D),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                          showMd('readme.md');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MyMd()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF332841),
+                        ),
+                        child: const Text(
+                          "Show readme file",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 171, 145, 218),
+                            fontFamily: 'quicksand',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                          showMd('changes.md');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MyMd()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF332841),
+                        ),
+                        child: const Text(
+                          "Show changelog",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 171, 145, 218),
+                            fontFamily: 'quicksand',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "This app was made with <3 and cats\n ≽/ᐠ - w -マ≼ Ⳋ from Catpawz\n\n based on ideas from firebird496",
                         style: TextStyle(
                           fontSize: 18,
                           color: Color(0xFF7F698C),
