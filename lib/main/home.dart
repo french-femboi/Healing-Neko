@@ -996,7 +996,7 @@ class _homePagePageState extends State<homePagePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           vibrate();
-                          showMd('changelog.md');
+                          showMd('changes.md');
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => const MyMd()),

@@ -50,7 +50,7 @@ flutter:
     - assets/neko/
     - soundscapes.md
     - readme.md    
-    - changelog.md   
+    - changes.md   
   fonts:
     - family: Quicksand
       fonts:
