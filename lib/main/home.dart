@@ -17,6 +17,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:healing_neko/internal/mdreader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -109,6 +110,11 @@ class _homePagePageState extends State<homePagePage> {
     });
   }
 
+  showMd(arg1) async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('hln_mdfile', arg1);
+  }
+
   generateMessage() {
     //list of smol welcome messages to make the user feel at home
     final List<String> strings = [
@@ -163,7 +169,7 @@ class _homePagePageState extends State<homePagePage> {
 
   initializeMusic() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(prefs.getString('hln_song') == "-"){
+    if((prefs.getString('hln_song')??"-") == "-"){
       //playback not enabled
     } else {
       await player.setReleaseMode(ReleaseMode.loop);
@@ -471,6 +477,27 @@ class _homePagePageState extends State<homePagePage> {
                         ),
                         child: const Text(
                           "Online toolkit",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 195, 178, 226),
+                            fontFamily: 'quicksand',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 61, 50, 80),
+                        ),
+                        child: const Text(
+                          "Catpawz community",
                           style: TextStyle(
                             color: Color.fromARGB(255, 195, 178, 226),
                             fontFamily: 'quicksand',
@@ -905,6 +932,31 @@ class _homePagePageState extends State<homePagePage> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                          showMd('soundscapes.md');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MyMd()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF332841),
+                        ),
+                        child: const Text(
+                          "Music credits / licences",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 171, 145, 218),
+                            fontFamily: 'quicksand',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     const Divider(
                       height: 10,
@@ -913,10 +965,62 @@ class _homePagePageState extends State<homePagePage> {
                       endIndent: 0,
                       color: Color(0xFF61586D),
                     ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                          showMd('readme.md');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MyMd()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF332841),
+                        ),
+                        child: const Text(
+                          "Show readme file",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 171, 145, 218),
+                            fontFamily: 'quicksand',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                          showMd('changelog.md');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MyMd()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF332841),
+                        ),
+                        child: const Text(
+                          "Show changelog",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 171, 145, 218),
+                            fontFamily: 'quicksand',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
                     const SizedBox(
                       width: double.infinity,
                       child: Text(
-                        "This app was made with <3 from Catpawz based on ideas from firebird496",
+                        "This app was made with <3 and cats from Catpawz based on ideas from firebird496",
                         style: TextStyle(
                           fontSize: 18,
                           color: Color(0xFF7F698C),
