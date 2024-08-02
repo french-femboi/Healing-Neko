@@ -1020,7 +1020,7 @@ class _homePagePageState extends State<homePagePage> {
                     const SizedBox(
                       width: double.infinity,
                       child: Text(
-                        "This app was made with <3 and cats from Catpawz based on ideas from firebird496",
+                        "This app was made with <3 and cats\n ≽/ᐠ - w -マ≼ Ⳋ from Catpawz\n\n based on ideas from firebird496",
                         style: TextStyle(
                           fontSize: 18,
                           color: Color(0xFF7F698C),
