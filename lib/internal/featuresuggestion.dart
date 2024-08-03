@@ -93,7 +93,7 @@ Future<void> initializeWindow(BuildContext context) async {
 
 class _suggestPageState extends State<suggestPage> {
   TextEditingController _titleController = TextEditingController();
-  TextEditingController _reportController = TextEditingController();
+  TextEditingController _suggestController = TextEditingController();
   TextEditingController _discordController = TextEditingController();
   bool beta = false;
   bool alpha = false;
@@ -151,20 +151,19 @@ class _suggestPageState extends State<suggestPage> {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       String title = _titleController.text;
-      String report = _reportController.text;
+      String suggestion = _suggestController.text;
       String discord = _discordController.text;
 
       // Define the URL for the Baserow API endpoint
       String url =
-          'https://api.dynapaw.eu/api/database/rows/table/1095/?user_field_names=true';
+          'https://api.dynapaw.eu/api/database/rows/table/1096/?user_field_names=true';
 
       // Define the data for the new row
       Map<String, dynamic> rowData = {
         'title': title, // Replace with actual title
-        'report': report, // Replace with actual message
+        'suggestion': suggestion, // Replace with actual message
         'discord': discord,
         'groups': getSelectedPrograms(),
-        'device': "APPVER: $appVersion, BNUM: $buildNumber, ANDV: $androidVersion, INST: $appInstaller" // Replace with actual creator
       };
 
       // Make a POST request to add the new row
@@ -226,7 +225,7 @@ class _suggestPageState extends State<suggestPage> {
               const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Sending a bug report, will also send some basic device and app data such as: android version, app version, screen size, connection status and app installer ID.",
+                  "Your suggestions help me to know what exactly you're expecting and what you want from this app, please make it as detailed as possible!",
                   style: TextStyle(
                     fontSize: 18,
                     color: Color(0xFF7F698C),
@@ -261,7 +260,7 @@ class _suggestPageState extends State<suggestPage> {
                 controller: _titleController,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                  labelText: "Report title",
+                  labelText: "Suggestion title",
                   hintStyle: const TextStyle(color: Color(0xFF7F698C)),
                   labelStyle: const TextStyle(color: Color(0xFF7F698C)),
                   border: OutlineInputBorder(
@@ -280,11 +279,11 @@ class _suggestPageState extends State<suggestPage> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: _reportController,
+                controller: _suggestController,
                 maxLines: 5,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                  labelText: "Report content",
+                  labelText: "Suggestion content",
                   hintStyle: const TextStyle(color: Color(0xFF7F698C)),
                   labelStyle: const TextStyle(color: Color(0xFF7F698C)),
                   border: OutlineInputBorder(
@@ -305,7 +304,7 @@ class _suggestPageState extends State<suggestPage> {
               const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Please select the programs you're part of, so we can pinpoint the bug better.",
+                  "Please select the programs you're part of, so we can add your suggestion for testing as soon as possible.",
                   style: TextStyle(
                     fontSize: 18,
                     color: Color(0xFF7F698C),
@@ -376,7 +375,7 @@ class _suggestPageState extends State<suggestPage> {
                       SizedBox(
                           width: 8), // Add some space between icon and text
                       Text(
-                        "Send report",
+                        "Send suggestion",
                         style: TextStyle(
                           color: Color.fromARGB(255, 171, 145, 218),
                           fontFamily: 'quicksand',
