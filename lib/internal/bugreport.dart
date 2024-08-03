@@ -164,7 +164,8 @@ class _bugPageState extends State<bugPage> {
         'report': report, // Replace with actual message
         'discord': discord,
         'groups': getSelectedPrograms(),
-        'device': "APPVER: $appVersion, BNUM: $buildNumber, ANDV: $androidVersion, INST: $appInstaller" // Replace with actual creator
+        'device':
+            "APPVER: $appVersion, BNUM: $buildNumber, ANDV: $androidVersion, INST: $appInstaller" // Replace with actual creator
       };
 
       // Make a POST request to add the new row
@@ -217,6 +218,14 @@ class _bugPageState extends State<bugPage> {
                 (route) => false);
           },
         ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(2.0), // Height of the bottom bar
+          child: Container(
+            color: Color(0xFFC8ACEE), // Color of the bottom bar
+            height: 2.0, // Height of the bottom bar
+          ),
+        ),
+        elevation: 4,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

@@ -1,11 +1,11 @@
-//  _    _            _ _               _   _      _             ____  
-// | |  | |          | (_)             | \ | |    | |          _|___ \ 
+//  _    _            _ _               _   _      _             ____
+// | |  | |          | (_)             | \ | |    | |          _|___ \
 // | |__| | ___  __ _| |_ _ __   __ _  |  \| | ___| | _____   (_) __) |
-// |  __  |/ _ \/ _` | | | '_ \ / _` | | . ` |/ _ \ |/ / _ \     |__ < 
+// |  __  |/ _ \/ _` | | | '_ \ / _` | | . ` |/ _ \ |/ / _ \     |__ <
 // | |  | |  __/ (_| | | | | | | (_| | | |\  |  __/   < (_) |  _ ___) |
-// |_|  |_|\___|\__,_|_|_|_| |_|\__, | |_| \_|\___|_|\_\___/  (_)____/ 
-//                               __/ |                                 
-//                              |___/                                  
+// |_|  |_|\___|\__,_|_|_|_| |_|\__, | |_| \_|\___|_|\_\___/  (_)____/
+//                               __/ |
+//                              |___/
 //
 // ----------------------------------------------------------------------------
 // Made with love and a cat by Catpawz
@@ -121,7 +121,7 @@ class _MdPageState extends State<MdPage> {
     }
   }
 
-    Future<void> _launchURL(String url) async {
+  Future<void> _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
@@ -154,32 +154,40 @@ class _MdPageState extends State<MdPage> {
           onPressed: () {
             vibrate();
             Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => homePage()),
-              (route) => false
-            );
+                MaterialPageRoute(builder: (context) => homePage()),
+                (route) => false);
           },
         ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(2.0), // Height of the bottom bar
+          child: Container(
+            color: Color(0xFFC8ACEE), // Color of the bottom bar
+            height: 2.0, // Height of the bottom bar
+          ),
+        ),
+        elevation: 4,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-                MarkdownBody(
+              MarkdownBody(
                   data: _markdownContent,
                   styleSheet: MarkdownStyleSheet(
-                    p: TextStyle(color: Color.fromARGB(255, 238, 228, 252)),
-                    h1: TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.bold),
-                    h2: TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.bold),
-                    a: TextStyle(color: Color.fromARGB(255, 174, 119, 252))
-                  ),
+                      p: TextStyle(color: Color.fromARGB(255, 238, 228, 252)),
+                      h1: TextStyle(
+                          color: Color(0xFFC8ACEE),
+                          fontWeight: FontWeight.bold),
+                      h2: TextStyle(
+                          color: Color(0xFFC8ACEE),
+                          fontWeight: FontWeight.bold),
+                      a: TextStyle(color: Color.fromARGB(255, 174, 119, 252))),
                   onTapLink: (text, href, title) {
                     if (href != null) {
                       _launchURL(href);
                     }
-                  }
-                ),
-
+                  }),
             ],
           ),
         ),

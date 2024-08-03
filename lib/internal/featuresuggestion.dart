@@ -216,6 +216,14 @@ class _suggestPageState extends State<suggestPage> {
                 (route) => false);
           },
         ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(2.0), // Height of the bottom bar
+          child: Container(
+            color: Color(0xFFC8ACEE), // Color of the bottom bar
+            height: 2.0, // Height of the bottom bar
+          ),
+        ),
+        elevation: 4,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
