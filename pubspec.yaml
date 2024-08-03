@@ -1,7 +1,7 @@
 name: healing_neko
-description: "A new Flutter project."
+description: "Meow meow"
 publish_to: 'none'
-version: 0.1.0
+version: 0.0.1
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -36,6 +36,7 @@ dependencies:
   flutter_local_notifications: ^17.0.0
   package_info_plus: ^5.0.1
   flutter_markdown: ^0.7.3
+  device_info_plus: ^9.1.2
 
 dev_dependencies:
   flutter_test:

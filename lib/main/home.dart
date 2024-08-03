@@ -17,6 +17,8 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:healing_neko/internal/bugreport.dart';
+import 'package:healing_neko/internal/featuresuggestion.dart';
 import 'package:healing_neko/internal/mdreader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
@@ -93,6 +95,7 @@ class _homePagePageState extends State<homePagePage> {
     generateMessage();
     initializeMusic();
     initializeWindow(context);
+    loadIndex();
   }
 
   vibrate() {
@@ -111,8 +114,23 @@ class _homePagePageState extends State<homePagePage> {
   }
 
   showMd(arg1) async {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('hln_mdfile', arg1);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('hln_mdfile', arg1);
+  }
+
+  saveIndex(arg1) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('hln_index', arg1);
+  }
+
+  loadIndex() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var newIndex = prefs.getInt('hln_index') ?? 0;
+    setState(() {
+      _currentIndex = newIndex;
+    });
+    loadNav(newIndex);
+    await prefs.setInt('hln_index', 0);
   }
 
   generateMessage() {
@@ -156,7 +174,7 @@ class _homePagePageState extends State<homePagePage> {
 
   playBackMusic(arg1) async {
     stopMusic();
-    if(arg1 == "-"){
+    if (arg1 == "-") {
       //plaback not enabled
     } else {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -169,7 +187,7 @@ class _homePagePageState extends State<homePagePage> {
 
   initializeMusic() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if((prefs.getString('hln_song')??"-") == "-"){
+    if ((prefs.getString('hln_song') ?? "-") == "-") {
       //playback not enabled
     } else {
       await player.setReleaseMode(ReleaseMode.loop);
@@ -185,32 +203,8 @@ class _homePagePageState extends State<homePagePage> {
     await pet1.resume();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: Color(0xFF2B2331),
-    ));
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Healing Neko',
-          style:
-              TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
-        ),
-        backgroundColor: const Color(0xFF332841),
-        automaticallyImplyLeading: false,
-      ),
-      bottomNavigationBar: SalomonBottomBar(
-        currentIndex: _currentIndex,
-        onTap: (i) {
-          vibrate();
-          setState(() => _currentIndex = i);
+  loadNav(arg1) {
+        setState(() => _currentIndex = arg1);
           if (_currentIndex == 0) {
             homeVis = true;
             treeVis = false;
@@ -253,6 +247,36 @@ class _homePagePageState extends State<homePagePage> {
           } else {
             stopNekoSounds();
           }
+        
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarColor: Color(0xFF2B2331),
+    ));
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Healing Neko',
+          style:
+              TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
+        ),
+        backgroundColor: const Color(0xFF332841),
+        automaticallyImplyLeading: false,
+      ),
+      bottomNavigationBar: SalomonBottomBar(
+        currentIndex: _currentIndex,
+        onTap: (i) {
+          vibrate();
+          setState(() => _currentIndex = i);
+          loadNav(i);
         },
         backgroundColor: const Color(0xFF2B2331),
         selectedItemColor: const Color.fromARGB(224, 140, 125, 175),
@@ -921,14 +945,28 @@ class _homePagePageState extends State<homePagePage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF332841),
                         ),
-                        child: const Text(
-                          "Select background music",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 171, 145, 218),
-                            fontFamily: 'quicksand',
-                            fontWeight: FontWeight.w700,
-                          ),
-                          textAlign: TextAlign.start,
+                        child: const Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.center, // Center the content
+                          children: [
+                            Icon(
+                              Icons.music_note_rounded, // Choose an appropriate icon
+                              color: Color.fromARGB(
+                                  255, 171, 145, 218), // Match text color
+                              size: 20, // Adjust size as needed
+                            ),
+                            SizedBox(
+                                width:
+                                    8), // Add some space between icon and text
+                            Text(
+                              "Select background music",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 171, 145, 218),
+                                fontFamily: 'quicksand',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -937,23 +975,39 @@ class _homePagePageState extends State<homePagePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           vibrate();
+                          saveIndex(4);
                           showMd('soundscapes.md');
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const MyMd()),
+                            MaterialPageRoute(
+                                builder: (context) => const MyMd()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF332841),
                         ),
-                        child: const Text(
-                          "Music credits / licences",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 171, 145, 218),
-                            fontFamily: 'quicksand',
-                            fontWeight: FontWeight.w700,
-                          ),
-                          textAlign: TextAlign.start,
+                        child: const Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.center, // Center the content
+                          children: [
+                            Icon(
+                              Icons.info_rounded, // Choose an appropriate icon
+                              color: Color.fromARGB(
+                                  255, 171, 145, 218), // Match text color
+                              size: 20, // Adjust size as needed
+                            ),
+                            SizedBox(
+                                width:
+                                    8), // Add some space between icon and text
+                            Text(
+                              "Music credits / licenses",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 171, 145, 218),
+                                fontFamily: 'quicksand',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -971,23 +1025,39 @@ class _homePagePageState extends State<homePagePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           vibrate();
+                          saveIndex(4);
                           showMd('readme.md');
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const MyMd()),
+                            MaterialPageRoute(
+                                builder: (context) => const MyMd()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF332841),
                         ),
-                        child: const Text(
-                          "Show readme file",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 171, 145, 218),
-                            fontFamily: 'quicksand',
-                            fontWeight: FontWeight.w700,
-                          ),
-                          textAlign: TextAlign.start,
+                        child: const Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.center, // Center the content
+                          children: [
+                            Icon(
+                              Icons.edit_rounded, // Choose an appropriate icon
+                              color: Color.fromARGB(
+                                  255, 171, 145, 218), // Match text color
+                              size: 20, // Adjust size as needed
+                            ),
+                            SizedBox(
+                                width:
+                                    8), // Add some space between icon and text
+                            Text(
+                              "Show readme file",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 171, 145, 218),
+                                fontFamily: 'quicksand',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -996,23 +1066,119 @@ class _homePagePageState extends State<homePagePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           vibrate();
+                          saveIndex(4);
                           showMd('changes.md');
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const MyMd()),
+                            MaterialPageRoute(
+                                builder: (context) => const MyMd()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF332841),
                         ),
-                        child: const Text(
-                          "Show changelog",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 171, 145, 218),
-                            fontFamily: 'quicksand',
-                            fontWeight: FontWeight.w700,
-                          ),
-                          textAlign: TextAlign.start,
+                        child: const Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.center, // Center the content
+                          children: [
+                            Icon(
+                              Icons.web_stories_rounded, // Choose an appropriate icon
+                              color: Color.fromARGB(
+                                  255, 171, 145, 218), // Match text color
+                              size: 20, // Adjust size as needed
+                            ),
+                            SizedBox(
+                                width:
+                                    8), // Add some space between icon and text
+                            Text(
+                              "Display changelog",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 171, 145, 218),
+                                fontFamily: 'quicksand',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                          saveIndex(4);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const bugPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF332841),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.center, // Center the content
+                          children: [
+                            Icon(
+                              Icons.feedback_rounded, // Choose an appropriate icon
+                              color: Color.fromARGB(
+                                  255, 171, 145, 218), // Match text color
+                              size: 20, // Adjust size as needed
+                            ),
+                            SizedBox(
+                                width:
+                                    8), // Add some space between icon and text
+                            Text(
+                              "Report a bug",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 171, 145, 218),
+                                fontFamily: 'quicksand',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                          saveIndex(4);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const suggestPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF332841),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.center, // Center the content
+                          children: [
+                            Icon(
+                              Icons.reviews_rounded, // Choose an appropriate icon
+                              color: Color.fromARGB(
+                                  255, 171, 145, 218), // Match text color
+                              size: 20, // Adjust size as needed
+                            ),
+                            SizedBox(
+                                width:
+                                    8), // Add some space between icon and text
+                            Text(
+                              "Suggest a feature",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 171, 145, 218),
+                                fontFamily: 'quicksand',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
