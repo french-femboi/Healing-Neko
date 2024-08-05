@@ -33,3 +33,25 @@ We use [GIT](https://git-scm.com/) for versioning and code review.
 This project is licensed under the [CC-BY-NC-4.0](LICENSE)
 Creative Commons Public License - see the [LICENSE.md](LICENSE) file for
 details
+
+## Shared preferences
+
+Here you'll find every single shared_preferences key and value, plus a simple explanation. It's possible that some of them aren't listed in here, due to the fact that they are not needed for code editing and only internal purposes such as bug reporting and feature requests.
+
+---
+_Booleans_
+- **hln_setup** - boolean - returns if the user has already completed initial setup or not
+- **hln_shorter_boot** - boolean - makes the app boot faster by making the load time tighter
+- **hln_haptic** - boolean - returns if the user has haptic feedback enabled or not
+- **hln_neko_sounds** - true - returns if the user has enabled neko sounds or not
+- **hln_ui_sounds** - true - returns if the user has enabled ui sounds or not
+ 
+_Strings_
+- **hln_name** - string - the name the user set on initial setup
+- **hln_hobbies** - string - the hobbies the user set on initial setup
+- **hln_petName** - string - the pet name the user chose on the initial setup
+- **hln_mdfile** - string - used for storing the requested file name while opening the view page
+- **hln_song** - string - saved the current song name to resume playback when going back to the home page
+
+_Integers_
+- **hln_index** - integer - used for setting a custom navigation index when relaunching the home page

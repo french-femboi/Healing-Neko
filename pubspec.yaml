@@ -1,7 +1,7 @@
 name: healing_neko
 description: "Meow meow"
 publish_to: 'none'
-version: 0.0.1
+version: 0.0.2+2
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -46,6 +46,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/img/
+    - assets/ui/
     - assets/nekos/
     - assets/soundscapes/
     - assets/neko/

@@ -20,6 +20,7 @@ import 'package:flutter/services.dart';
 import 'package:healing_neko/internal/bugreport.dart';
 import 'package:healing_neko/internal/featuresuggestion.dart';
 import 'package:healing_neko/internal/mdreader.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -82,6 +83,8 @@ class _homePagePageState extends State<homePagePage> {
   var neko_sounds = false;
   var ui_sounds = false;
   var shorter_boot = false;
+  var app_version = "-";
+  var app_build = "-";
   //navigation states
   var homeVis = true;
   var treeVis = false;
@@ -104,12 +107,17 @@ class _homePagePageState extends State<homePagePage> {
 
   initializeSettings() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       neko_sounds = prefs.getBool('hln_neko_sounds') ?? true;
       ui_sounds = prefs.getBool('hln_ui_sounds') ?? true;
       shorter_boot = prefs.getBool('hln_shorter_boot') ?? false;
+      app_version = packageInfo.version;
+      app_build = packageInfo.buildNumber;
     });
   }
+
+
 
   saveSetting(arg1, arg2) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -184,7 +192,8 @@ class _homePagePageState extends State<homePagePage> {
   }
 
   final player = AudioPlayer();
-  final pet1 = AudioPlayer();
+  final player_ui = AudioPlayer();
+  final player_neko = AudioPlayer();
 
   stopMusic() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -193,10 +202,11 @@ class _homePagePageState extends State<homePagePage> {
   }
 
   stopNekoSounds() async {
-    await pet1.stop();
+    await player_neko.stop();
   }
 
   playBackMusic(arg1) async {
+    playUiSound(4);
     stopMusic();
     if (arg1 == "-") {
       //plaback not enabled
@@ -206,6 +216,30 @@ class _homePagePageState extends State<homePagePage> {
       await player.setReleaseMode(ReleaseMode.loop);
       await player.setSource(AssetSource(arg1));
       await player.resume();
+    }
+  }
+
+  playUiSound(arg1) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var active = prefs.getBool('hln_ui_sounds') ?? true;
+    if (active == true) {
+      if (arg1 == 1) {
+        await player_ui.stop();
+        await player_ui.setSource(AssetSource('ui/click_3.wav'));
+        await player_ui.resume();
+      } else if (arg1 == 2) {
+        await player_ui.stop();
+        await player_ui.setSource(AssetSource('ui/click_4.wav'));
+        await player_ui.resume();
+      } else if (arg1 == 3) {
+        await player_ui.stop();
+        await player_ui.setSource(AssetSource('ui/click_7.wav'));
+        await player_ui.resume();
+      } else if (arg1 == 4) {
+        await player_ui.stop();
+        await player_ui.setSource(AssetSource('ui/Complete_23.wav'));
+        await player_ui.resume();
+      }
     }
   }
 
@@ -222,10 +256,10 @@ class _homePagePageState extends State<homePagePage> {
 
   nekoSounds() async {
     if (neko_sounds == true) {
-      await pet1.setReleaseMode(ReleaseMode.loop);
-      await pet1.setVolume(0.2);
-      await pet1.setSource(AssetSource("neko/purr.mp3"));
-      await pet1.resume();
+      await player_neko.setReleaseMode(ReleaseMode.loop);
+      await player_neko.setVolume(0.2);
+      await player_neko.setSource(AssetSource("neko/purr.mp3"));
+      await player_neko.resume();
     }
   }
 
@@ -308,6 +342,7 @@ class _homePagePageState extends State<homePagePage> {
         currentIndex: _currentIndex,
         onTap: (i) {
           vibrate();
+          playUiSound(1);
           setState(() => _currentIndex = i);
           loadNav(i);
         },
@@ -639,6 +674,7 @@ class _homePagePageState extends State<homePagePage> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
+                            playUiSound(2);
                             vibrate();
                             Widget _buildBottomSheet(
                               BuildContext context,
@@ -1039,6 +1075,7 @@ class _homePagePageState extends State<homePagePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             vibrate();
+                            playUiSound(2);
                             saveIndex(4);
                             showMd('soundscapes.md');
                             Navigator.push(
@@ -1089,6 +1126,7 @@ class _homePagePageState extends State<homePagePage> {
                         value:
                             neko_sounds, // boolean variable to hold the switch state
                         onChanged: (bool value) {
+                          playUiSound(3);
                           setState(() {
                             neko_sounds = value;
                             saveSetting(1, value);
@@ -1115,6 +1153,7 @@ class _homePagePageState extends State<homePagePage> {
                         value:
                             ui_sounds, // boolean variable to hold the switch state
                         onChanged: (bool value) {
+                          playUiSound(3);
                           setState(() {
                             ui_sounds = value;
                             saveSetting(2, value);
@@ -1174,6 +1213,7 @@ class _homePagePageState extends State<homePagePage> {
                         value:
                             shorter_boot, // boolean variable to hold the switch state
                         onChanged: (bool value) {
+                          playUiSound(3);
                           setState(() {
                             shorter_boot = value;
                             saveSetting(3, value);
@@ -1202,6 +1242,7 @@ class _homePagePageState extends State<homePagePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             vibrate();
+                            playUiSound(2);
                             saveIndex(4);
                             showMd('readme.md');
                             Navigator.push(
@@ -1244,6 +1285,7 @@ class _homePagePageState extends State<homePagePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             vibrate();
+                            playUiSound(2);
                             saveIndex(4);
                             showMd('changes.md');
                             Navigator.push(
@@ -1286,6 +1328,7 @@ class _homePagePageState extends State<homePagePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             vibrate();
+                            playUiSound(2);
                             saveIndex(4);
                             Navigator.push(
                               context,
@@ -1327,6 +1370,7 @@ class _homePagePageState extends State<homePagePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             vibrate();
+                            playUiSound(2);
                             saveIndex(4);
                             Navigator.push(
                               context,
@@ -1364,10 +1408,10 @@ class _homePagePageState extends State<homePagePage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const SizedBox(
+                      SizedBox(
                         width: double.infinity,
                         child: Text(
-                          "This app was made with <3 and cats\n ≽/ᐠ - w -マ≼ Ⳋ from Catpawz\n\n based on ideas from firebird496",
+                          "This app was made with <3 and cats\n ≽/ᐠ - w -マ≼ Ⳋ from Catpawz\n\n based on ideas from firebird496\n\nVER: $app_version\nBNUM: $app_build",
                           style: TextStyle(
                             fontSize: 18,
                             color: Color(0xFF7F698C),
