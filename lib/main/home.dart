@@ -103,6 +103,7 @@ class _homePagePageState extends State<homePagePage> {
     initializeSettings();
     initializeWindow(context);
     loadIndex();
+    playUiSound(1);
   }
 
   initializeSettings() async {

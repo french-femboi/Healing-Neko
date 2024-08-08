@@ -1,3 +1,7 @@
+# v0.0.3 - ALPHA - 08/08/2024
+
+Added UI sound upon launching the home page, added more content to the home page to add more content in general, changed some of the UI sound asset names 
+
 # v0.0.2 - ALPHA - 05/08/2024
 
 Added new sounds files for the UI sounds, created UI shared preferences, added UI sounds to some elements of the interface, added a new app version and build indicator at the bottom of the settings page. 
