@@ -89,15 +89,24 @@ Future<void> initializeWindow(BuildContext context) async {
 
   //get if the user has already saved local data
   final bool? dataNeeded = prefs.getBool('hln_setup');
+  final bool shorterBoot = prefs.getBool('hln_shorter_boot') ?? false;
+  
+  int sec;
+
+  if (shorterBoot == true) {
+    sec = 1;
+  } else {
+    sec = 4;
+  }
 
   if(dataNeeded == true) {
     //user already has local data saved
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: sec), () {
       Navigator.pushNamed(context, '/home');
     });
   } else {
     //user doesn't have local data saved
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: sec), () {
       Navigator.pushNamed(context, '/pre');
     });
   }
