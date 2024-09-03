@@ -29,6 +29,7 @@ import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -50,6 +51,8 @@ class homePage extends StatelessWidget {
     );
   }
 }
+
+
 
 ThemeData themeData() {
   Color accentColor = const Color(0xFF3A4F50);
@@ -121,6 +124,13 @@ class _homePagePageState extends State<homePagePage> {
     });
   }
 
+  Future<void> _launchURL(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
 
   saveSetting(arg1, arg2) async {
@@ -1584,6 +1594,120 @@ class _homePagePageState extends State<homePagePage> {
                                       8), // Add some space between icon and text
                               Text(
                                 "Suggest a feature",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 171, 145, 218),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            vibrate();
+                            playUiSound(2);
+                            saveIndex(4);
+                            launchUrl(Uri.parse('https://apps.french-femboi.eu/view?app=healing-neko'));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF332841),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .web_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(
+                                    255, 171, 145, 218), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "Website",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 171, 145, 218),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            vibrate();
+                            playUiSound(2);
+                            saveIndex(4);
+                            launchUrl(Uri.parse('https://social.fembois.eu/tags/healingneko'));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF332841),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .share_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(
+                                    255, 171, 145, 218), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "Healing Neko on mastodon",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 171, 145, 218),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            vibrate();
+                            playUiSound(2);
+                            saveIndex(4);
+                            launchUrl(Uri.parse('https://github.com/french-femboi/Healing-Neko'));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF332841),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .source_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(
+                                    255, 171, 145, 218), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "Source code",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 171, 145, 218),
                                   fontFamily: 'quicksand',
