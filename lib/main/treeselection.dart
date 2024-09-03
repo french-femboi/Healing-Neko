@@ -132,7 +132,8 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
 addTid(String tid) async {
     final prefs = await SharedPreferences.getInstance();
     final current = prefs.getString('hln_tids');
-    await prefs.setString('hln_tids', current! + tid + "\n"); // Save the updated list to shared preferences
+    await prefs.setString('hln_tids', current! + tid + "\n");
+    await prefs.setString('hln_last_tid', tid); // Save the updated list to shared preferences
 }
 
   @override

@@ -83,6 +83,7 @@ class _homePagePageState extends State<homePagePage> {
   String username = "...";
   String welcomeMessage = "...";
   String petName = "...";
+  String last_tid = "...";
   String petFeeling = "happy";
   var _currentIndex = 0;
 
@@ -156,6 +157,7 @@ class _homePagePageState extends State<homePagePage> {
     setState(() {
       username = prefs.getString('hln_name') ?? "null";
       petName = prefs.getString('hln_petName') ?? "null";
+      last_tid = prefs.getString('hln_last_tid') ?? "-";
     });
   }
 
@@ -438,6 +440,47 @@ class _homePagePageState extends State<homePagePage> {
                         indent: 0,
                         endIndent: 0,
                         color: Color(0xFF61586D),
+                      ),
+                      const SizedBox(height: 10),
+                      Card(
+                        color: const Color(0xFF332841), 
+                        elevation: 0,// Customizable background color
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Your last assesment',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Color.fromARGB(255, 215, 190, 230), // Customizable text color
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Your last assesment had the T-ID $last_tid. Do you want to see it again?',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 151, 130, 163), 
+                                  // Customizable text color
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  // Add your onPressed code here!
+                                  vibrate();
+                                },
+                                child: const Text("Open assesment"),
+                                style: TextButton.styleFrom(
+                                  foregroundColor: const Color.fromARGB(255, 151, 130, 163), 
+                                  padding: const EdgeInsets.symmetric(horizontal: 0),// Customizable text color
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),

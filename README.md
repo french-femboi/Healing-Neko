@@ -53,6 +53,8 @@ _Strings_
 - **hln_petName** - string - the pet name the user chose on the initial setup
 - **hln_mdfile** - string - used for storing the requested file name while opening the view page
 - **hln_song** - string - saved the current song name to resume playback when going back to the home page
+- **hln_tids** - string - saves a list of all tree is'd to display in the list
+- **hln_last_tid** - string - saves the last tid from the last assesment of the user
 
 _Integers_
 - **hln_index** - integer - used for setting a custom navigation index when relaunching the home page
