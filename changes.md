@@ -1,5 +1,6 @@
 # v0.0.4 - ALPHA - 03/09/2024
 feat: Add tree selection page and navigation
+chore: Update home page icons and add button for viewing past T-ID's
 
 # v0.0.3 - ALPHA - 08/08/2024
 
