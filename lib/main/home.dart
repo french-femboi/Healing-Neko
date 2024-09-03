@@ -1539,7 +1539,7 @@ class _homePagePageState extends State<homePagePage> {
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          "This app was made with <3 and cats\n ≽/ᐠ - w -マ≼ Ⳋ from Catpawz\n\n based on ideas from firebird496\n\nVER: $app_version\nBNUM: $app_build",
+                          "This app was made with <3 and cats\n ≽/ᐠ - w -マ≼ Ⳋ from Catpawz\nand is licensed under a BSD-3 CLAUSE LICENSE\n\nbased on ideas from friends :3\n\nVER: $app_version\nBNUM: $app_build",
                           style: TextStyle(
                             fontSize: 18,
                             color: Color(0xFF7F698C),

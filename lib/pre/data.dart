@@ -139,7 +139,7 @@ class _DataSavePageState extends State<DataSavePage> {
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
-        backgroundColor: const Color(0xFF332841),
+        backgroundColor: Color.fromARGB(255, 39, 33, 43),
         automaticallyImplyLeading: false,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(2.0), // Height of the bottom bar
@@ -155,6 +155,11 @@ class _DataSavePageState extends State<DataSavePage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              Image.asset(
+                'assets/img/logo1.png',
+                width: 100,
+                height: 100,
+              ),
               const SizedBox(
                 width: double.infinity,
                 child: Text(
@@ -178,10 +183,11 @@ class _DataSavePageState extends State<DataSavePage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 15),
               const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Healing Neko uses server connections to fetch data for the app's content and algorithm. The connection is encrypted, and no data is shared from your device. There is absolutely no privacy risk, you're safe with us!",
+                  "This app uses no internet connection, all the data is stored in a local database. We do not collect any data from you. We respect your privacy.",
                   style: TextStyle(
                     fontSize: 18,
                     color: Color(0xFF7F698C),
@@ -189,10 +195,11 @@ class _DataSavePageState extends State<DataSavePage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 15),
               const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Take the time to configure the app to your wishes. We will add more customization features soon. Remember you do not have to put in your real name, just use your preferred name :) You'll have a neko pet to take care of as well! Give it a good name.",
+                  "You do not have to put in your real name, just put in a name you would like to be called by.",
                   style: TextStyle(
                     fontSize: 18,
                     color: Color(0xFF7F698C),
@@ -203,7 +210,8 @@ class _DataSavePageState extends State<DataSavePage> {
               const SizedBox(height: 20),
               TextField(
                 controller: _nameController,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Color.fromARGB(
+                                    255, 171, 145, 218)),
                 decoration: InputDecoration(
                   labelText: "Display name",
                   hintStyle: const TextStyle(color: Color(0xFFAE7DEE)),
@@ -225,7 +233,8 @@ class _DataSavePageState extends State<DataSavePage> {
               const SizedBox(height: 10),
               TextField(
                 controller: _hobbyController,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Color.fromARGB(
+                                    255, 171, 145, 218)),
                 decoration: InputDecoration(
                   labelText: "Favorite activities",
                   hintStyle: const TextStyle(color: Color(0xFFAE7DEE)),
@@ -247,7 +256,8 @@ class _DataSavePageState extends State<DataSavePage> {
               const SizedBox(height: 10),
               TextField(
                 controller: _petController,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Color.fromARGB(
+                                    255, 171, 145, 218)),
                 decoration: InputDecoration(
                   labelText: "Pet name",
                   hintStyle: const TextStyle(color: Color(0xFFAE7DEE)),
@@ -275,7 +285,7 @@ class _DataSavePageState extends State<DataSavePage> {
                     completeSetup();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF221B2E),
+                    backgroundColor: const Color(0xFF332841),
                   ),
                   child: const Text(
                     "Save data",
