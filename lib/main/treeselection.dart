@@ -14,7 +14,9 @@
 //
 // ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors, sort_child_properties_last
 import 'dart:async';
+import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -93,6 +95,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
   PageController _pageController = PageController();
   int _currentPage = 0;
   String tid = "";
+  List<String> items = [];
 
   vibrate() {
     if (Theme.of(context).platform == TargetPlatform.android) {
@@ -125,6 +128,12 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
       }
     }
   }
+
+addTid(String tid) async {
+    final prefs = await SharedPreferences.getInstance();
+    final current = prefs.getString('hln_tids');
+    await prefs.setString('hln_tids', current! + tid + "\n"); // Save the updated list to shared preferences
+}
 
   @override
   void initState() {
@@ -574,6 +583,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             vibrate();
+                            addTid(tid);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF332841),
@@ -593,7 +603,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                                   width:
                                       8), // Add some space between icon and text
                               Text(
-                                "Display results",
+                                "Display results and save to list",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 171, 145, 218),
                                   fontFamily: 'quicksand',
