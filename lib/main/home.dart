@@ -18,8 +18,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:healing_neko/internal/bugreport.dart';
+import 'package:healing_neko/internal/cleardata.dart';
 import 'package:healing_neko/internal/featuresuggestion.dart';
 import 'package:healing_neko/internal/mdreader.dart';
+import 'package:healing_neko/main/tid-list.dart';
 import 'package:healing_neko/main/treeselection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -165,6 +167,12 @@ class _homePagePageState extends State<homePagePage> {
     });
     loadNav(newIndex);
     await prefs.setInt('hln_index', 0);
+  }
+
+  clearTIDS() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('hln_tids', ""); 
+    
   }
 
   generateMessage() {
@@ -329,12 +337,12 @@ class _homePagePageState extends State<homePagePage> {
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
-        backgroundColor: Color.fromARGB(255, 39, 33, 43),
+        backgroundColor: const Color.fromARGB(255, 39, 33, 43),
         automaticallyImplyLeading: false,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(2.0), // Height of the bottom bar
+          preferredSize: const Size.fromHeight(2.0), // Height of the bottom bar
           child: Container(
-            color: Color(0xFFC8ACEE), // Color of the bottom bar
+            color: const Color(0xFFC8ACEE), // Color of the bottom bar
             height: 2.0, // Height of the bottom bar
           ),
         ),
@@ -469,7 +477,7 @@ class _homePagePageState extends State<homePagePage> {
                           onPressed: () {
                             vibrate();
                             playUiSound(2);
-                            saveIndex(4);
+                            saveIndex(1);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -485,7 +493,7 @@ class _homePagePageState extends State<homePagePage> {
                             children: [
                               Icon(
                                 Icons
-                                    .feedback_rounded, // Choose an appropriate icon
+                                    .play_arrow_rounded, // Choose an appropriate icon
                                 color: Color.fromARGB(
                                     255, 171, 145, 218), // Match text color
                                 size: 20, // Adjust size as needed
@@ -497,6 +505,141 @@ class _homePagePageState extends State<homePagePage> {
                                 "Start tree selection",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 171, 145, 218),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            vibrate();
+                            playUiSound(2);
+                            saveIndex(1);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TidListPage()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF332841),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .list_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(
+                                    255, 171, 145, 218), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "View past T-ID's",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 171, 145, 218),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                        onPressed: () {
+                          vibrate();
+                          playUiSound(1);
+                          clearTIDS();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                elevation: 0.0,
+                                backgroundColor: Colors.transparent,
+                                child: Container(
+                                  padding: const EdgeInsets.all(16.0),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF332841),
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 10.0,
+                                        offset: Offset(0.0, 10.0),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Text(
+                                        "Your past TID's have been deleted!",
+                                        style: TextStyle(
+                                          fontSize: 24.0,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color.fromARGB(255, 171, 145, 218),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16.0),
+                                        const Text(
+                                          "I'm sorry but if you did this on accident, you can't get them back. :(",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(color: Color.fromARGB(255, 171, 145, 218)), // Change the color as needed
+                                        ),
+                                      const SizedBox(height: 24.0),
+                                      TextButton(
+                                        onPressed: () {
+                                          vibrate();
+                                          Navigator.of(context).pop();
+                                        },
+                                        style: TextButton.styleFrom(
+                                          foregroundColor: Colors.red, // Change the color as needed
+                                        ),
+                                        child: const Text("Close"),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 65, 40, 40),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .cancel_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(255, 218, 145, 145), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "Delete past TID's",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 218, 145, 145),
                                   fontFamily: 'quicksand',
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -1176,13 +1319,13 @@ class _homePagePageState extends State<homePagePage> {
                             saveSetting(1, value);
                           });
                         },
-                        activeColor: Color.fromARGB(
+                        activeColor: const Color.fromARGB(
                             255, 214, 182, 255), // Color when the switch is on
-                        activeTrackColor: Color(
+                        activeTrackColor: const Color(
                             0xFF61586D), // Track color when the switch is on
                         inactiveThumbColor:
                             Colors.grey, // Thumb color when the switch is off
-                        inactiveTrackColor: Color(
+                        inactiveTrackColor: const Color(
                             0xFF332841), // Track color when the switch is off
                       ),
                       SwitchListTile(
@@ -1203,13 +1346,13 @@ class _homePagePageState extends State<homePagePage> {
                             saveSetting(2, value);
                           });
                         },
-                        activeColor: Color.fromARGB(
+                        activeColor: const Color.fromARGB(
                             255, 214, 182, 255), // Color when the switch is on
-                        activeTrackColor: Color(
+                        activeTrackColor: const Color(
                             0xFF61586D), // Track color when the switch is on
                         inactiveThumbColor:
                             Colors.grey, // Thumb color when the switch is off
-                        inactiveTrackColor: Color(
+                        inactiveTrackColor: const Color(
                             0xFF332841), // Track color when the switch is off
                       ),
                       const SizedBox(height: 10),
@@ -1263,13 +1406,13 @@ class _homePagePageState extends State<homePagePage> {
                             saveSetting(3, value);
                           });
                         },
-                        activeColor: Color.fromARGB(
+                        activeColor: const Color.fromARGB(
                             255, 214, 182, 255), // Color when the switch is on
-                        activeTrackColor: Color(
+                        activeTrackColor: const Color(
                             0xFF61586D), // Track color when the switch is on
                         inactiveThumbColor:
                             Colors.grey, // Thumb color when the switch is off
-                        inactiveTrackColor: Color(
+                        inactiveTrackColor: const Color(
                             0xFF332841), // Track color when the switch is off
                       ),
                       const SizedBox(height: 10),
@@ -1451,12 +1594,53 @@ class _homePagePageState extends State<homePagePage> {
                           ),
                         ),
                       ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            vibrate();
+                            playUiSound(2);
+                            saveIndex(4);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ClearDataPage()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 65, 40, 40),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .cancel_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(255, 218, 145, 145), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "Delete all data",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 218, 145, 145),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 10),
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          "This app was made with <3 and cats\n ≽/ᐠ - w -マ≼ Ⳋ from Catpawz\n\n based on ideas from firebird496\n\nVER: $app_version\nBNUM: $app_build",
-                          style: TextStyle(
+                          "This app was made with <3 and cats\n ≽/ᐠ - w -マ≼ Ⳋ from Catpawz\nand is licensed under a BSD-3 CLAUSE LICENSE\n\nbased on ideas from friends :3\n\nVER: $app_version\nBNUM: $app_build",
+                          style: const TextStyle(
                             fontSize: 18,
                             color: Color(0xFF7F698C),
                             fontWeight: FontWeight.w700,

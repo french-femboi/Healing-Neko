@@ -14,6 +14,7 @@
 //
 // ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -27,20 +28,20 @@ void main() {
     statusBarColor: Colors.transparent,
   ));
 
-  runApp(const MyMd());
+  runApp(const MyTidList());
 }
 
-class MyMd extends StatelessWidget {
-  const MyMd({Key? key});
+class MyTidList extends StatelessWidget {
+  const MyTidList({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Healing Neko',
       theme: themeData(),
-      home: const MdPage(),
+      home: const TidListPage(),
       routes: {
-        '/home': (context) => const homePagePage(),
+        '/home': (context) => const homePage(),
       },
     );
   }
@@ -76,10 +77,10 @@ ThemeData themeData() {
   );
 }
 
-class MdPage extends StatefulWidget {
-  const MdPage({Key? key});
+class TidListPage extends StatefulWidget {
+  const TidListPage({Key? key});
   @override
-  State<MdPage> createState() => _MdPageState();
+  State<TidListPage> createState() => _TidListPageState();
 }
 
 Future<void> initializeWindow(BuildContext context) async {
@@ -87,8 +88,8 @@ Future<void> initializeWindow(BuildContext context) async {
   WidgetsFlutterBinding.ensureInitialized();
 }
 
-class _MdPageState extends State<MdPage> {
-  String _markdownContent = '';
+class _TidListPageState extends State<TidListPage> {
+  String tids = "No TID's found.";
 
   vibrate() {
     if (Theme.of(context).platform == TargetPlatform.android) {
@@ -100,25 +101,16 @@ class _MdPageState extends State<MdPage> {
   @override
   void initState() {
     super.initState();
-
     initializeWindow(context);
-    loadMarkdownFile();
+    loadItemsFromPrefs();
   }
 
-  Future<void> loadMarkdownFile() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? file = prefs.getString('hln_mdfile');
-    try {
-      String content = await rootBundle.loadString(file!);
-      setState(() {
-        _markdownContent = content;
-      });
-    } catch (e) {
-      print('Error loading markdown file: $e');
-      setState(() {
-        _markdownContent = 'Error loading content.';
-      });
-    }
+  Future<void> loadItemsFromPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final itemsString = prefs.getString('hln_tids');
+    setState(() {
+      tids = itemsString ?? "No TID's found.";
+    });
   }
 
   Future<void> _launchURL(String url) async {
@@ -143,7 +135,7 @@ class _MdPageState extends State<MdPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Text content',
+          "Past T-ID's",
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
@@ -171,23 +163,42 @@ class _MdPageState extends State<MdPage> {
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: SingleChildScrollView(
           child: Column(
-            children: <Widget>[
-              MarkdownBody(
-                  data: _markdownContent,
-                  styleSheet: MarkdownStyleSheet(
-                      p: TextStyle(color: Color.fromARGB(255, 238, 228, 252)),
-                      h1: TextStyle(
-                          color: Color(0xFFC8ACEE),
-                          fontWeight: FontWeight.bold),
-                      h2: TextStyle(
-                          color: Color(0xFFC8ACEE),
-                          fontWeight: FontWeight.bold),
-                      a: TextStyle(color: Color.fromARGB(255, 174, 119, 252))),
-                  onTapLink: (text, href, title) {
-                    if (href != null) {
-                      _launchURL(href);
-                    }
-                  }),
+            children: [
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                child: Text(
+                  "Past T-ID's",
+                  style: const TextStyle(
+                    fontSize: 30,
+                    color: Color(0xFFC8ACEE),
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const SizedBox(
+                width: double.infinity,
+                child: Text(
+                  "This is just a text file with all the TID's you had before.",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFF7F698C),
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Text(
+                  tids,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color.fromARGB(255, 173, 149, 187),
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

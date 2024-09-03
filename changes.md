@@ -1,5 +1,10 @@
+# v0.0.5 - ALPHA - 03/09/2024
+chore: Update version to 0.0.5+5 in pubspec.yaml, updated some UI elements which didn't work, prepared data-clear button, fixed API links
+chore: Update version to 0.0.5+5, fix UI elements, add data-clear button, and prepare data clear page
+
 # v0.0.4 - ALPHA - 03/09/2024
 feat: Add tree selection page and navigation
+chore: Update home page icons and add button for viewing past T-ID's
 
 # v0.0.3 - ALPHA - 08/08/2024
 
