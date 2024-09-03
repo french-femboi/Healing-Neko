@@ -156,7 +156,7 @@ class _bugPageState extends State<bugPage> {
 
       // Define the URL for the Baserow API endpoint
       String url =
-          'https://api.dynapaw.eu/api/database/rows/table/1095/?user_field_names=true';
+          'https://api.srv1.french-femboi.eu/api/database/rows/table/1095/?user_field_names=true';
 
       // Define the data for the new row
       Map<String, dynamic> rowData = {
@@ -207,7 +207,7 @@ class _bugPageState extends State<bugPage> {
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
-        backgroundColor: const Color(0xFF332841),
+        backgroundColor: Color.fromARGB(255, 39, 33, 43),
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: Color(0xFFC8ACEE)),

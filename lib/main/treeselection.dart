@@ -159,7 +159,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
-        backgroundColor: const Color(0xFF332841),
+        backgroundColor: Color.fromARGB(255, 39, 33, 43),
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Color(0xFFC8ACEE)),
@@ -223,7 +223,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'Positive',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),
@@ -249,7 +249,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'Negative',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),
@@ -275,7 +275,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'I have no idea',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),
@@ -318,7 +318,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'Yes',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),
@@ -344,7 +344,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'No',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),
@@ -370,7 +370,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'I have no idea',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),
@@ -413,7 +413,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'Sadness',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),
@@ -439,7 +439,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'Happiness',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),
@@ -465,7 +465,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'Boredom',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),
@@ -491,7 +491,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'Anxiety',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),
@@ -517,7 +517,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
                         child: const Text(
                           'Something else...',
                           style: TextStyle(
-                            color: Colors.white, // Set the text color
+                            color: Color.fromARGB(255, 171, 145, 218), // Set the text color
                             fontWeight: FontWeight.bold, // Set the text weight
                             fontSize: 16, // Set the text size
                           ),

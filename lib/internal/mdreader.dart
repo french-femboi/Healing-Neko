@@ -147,7 +147,7 @@ class _MdPageState extends State<MdPage> {
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
-        backgroundColor: const Color(0xFF332841),
+        backgroundColor: Color.fromARGB(255, 39, 33, 43),
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: Color(0xFFC8ACEE)),
@@ -168,7 +168,7 @@ class _MdPageState extends State<MdPage> {
         elevation: 4,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[

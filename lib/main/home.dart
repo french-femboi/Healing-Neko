@@ -18,6 +18,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:healing_neko/internal/bugreport.dart';
+import 'package:healing_neko/internal/cleardata.dart';
 import 'package:healing_neko/internal/featuresuggestion.dart';
 import 'package:healing_neko/internal/mdreader.dart';
 import 'package:healing_neko/main/treeselection.dart';
@@ -469,7 +470,7 @@ class _homePagePageState extends State<homePagePage> {
                           onPressed: () {
                             vibrate();
                             playUiSound(2);
-                            saveIndex(4);
+                            saveIndex(1);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -511,7 +512,7 @@ class _homePagePageState extends State<homePagePage> {
                           onPressed: () {
                             vibrate();
                             playUiSound(2);
-                            saveIndex(4);
+                            saveIndex(1);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1485,6 +1486,47 @@ class _homePagePageState extends State<homePagePage> {
                                 "Suggest a feature",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 171, 145, 218),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            vibrate();
+                            playUiSound(2);
+                            saveIndex(4);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ClearDataPage()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 65, 40, 40),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .cancel_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(255, 218, 145, 145), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "Delete all data",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 218, 145, 145),
                                   fontFamily: 'quicksand',
                                   fontWeight: FontWeight.w700,
                                 ),
