@@ -1,3 +1,6 @@
+# v0.0.4 - ALPHA - 03/09/2024
+feat: Add tree selection page and navigation
+
 # v0.0.3 - ALPHA - 08/08/2024
 
 Added UI sound upon launching the home page, added more content to the home page to add more content in general, changed some of the UI sound asset names 

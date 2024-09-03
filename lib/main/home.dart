@@ -20,6 +20,7 @@ import 'package:flutter/services.dart';
 import 'package:healing_neko/internal/bugreport.dart';
 import 'package:healing_neko/internal/featuresuggestion.dart';
 import 'package:healing_neko/internal/mdreader.dart';
+import 'package:healing_neko/main/treeselection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
@@ -462,6 +463,48 @@ class _homePagePageState extends State<homePagePage> {
                       endIndent: 0,
                       color: Color(0xFF61586D),
                     ),
+                    SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            vibrate();
+                            playUiSound(2);
+                            saveIndex(4);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TreeSelectionPage()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF332841),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .feedback_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(
+                                    255, 171, 145, 218), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "Start tree selection",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 171, 145, 218),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),
