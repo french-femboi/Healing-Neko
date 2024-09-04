@@ -1,1 +1,9 @@
+analyzer:
+  errors:
+    avoid_print: ignore
+    camel_case_types: ignore
+    file_names: ignore
+    non_constant_identifier_names: ignore
+    unnecessary_import: ignore
+    unused_import: ignore
 include: package:flutter_lints/flutter.yaml

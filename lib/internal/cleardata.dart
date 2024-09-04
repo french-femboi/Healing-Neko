@@ -12,7 +12,7 @@
 // based on ideas from firebird496
 // ----------------------------------------------------------------------------
 //
-// ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors, unused_element
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -155,12 +155,12 @@ class _ClearDataPageState extends State<ClearDataPage> {
       ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   width: double.infinity,
                   child: Text(
                     'Hold on!',
@@ -171,8 +171,8 @@ class _ClearDataPageState extends State<ClearDataPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                SizedBox(
+                const SizedBox(height: 20),
+                const SizedBox(
                   width: double.infinity,
                   child: Text(
                     "Once your data is cleared, it can't be recovered. Are you sure you want to continue?",
@@ -193,7 +193,7 @@ class _ClearDataPageState extends State<ClearDataPage> {
                       SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 65, 40, 40),
+                      backgroundColor: const Color.fromARGB(255, 65, 40, 40),
                     ),
                     child: const Row(
                       mainAxisAlignment:

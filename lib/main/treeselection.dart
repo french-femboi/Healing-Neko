@@ -12,11 +12,10 @@
 // based on ideas from firebird496
 // ----------------------------------------------------------------------------
 //
-// ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors, sort_child_properties_last
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors, sort_child_properties_last, unused_element, prefer_const_constructors
 import 'dart:async';
 import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -132,7 +131,7 @@ class _TreeSelectionPageState extends State<TreeSelectionPage> {
 addTid(String tid) async {
     final prefs = await SharedPreferences.getInstance();
     final current = prefs.getString('hln_tids');
-    await prefs.setString('hln_tids', current! + tid + "\n");
+    await prefs.setString('hln_tids', "${current!}$tid\n");
     await prefs.setString('hln_last_tid', tid); // Save the updated list to shared preferences
 }
 

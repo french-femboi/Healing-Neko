@@ -12,7 +12,7 @@
 // based on ideas from firebird496
 // ----------------------------------------------------------------------------
 //
-// ignore_for_file: unused_local_variable, depend_on_referenced_packages, unused_field, prefer_final_fields, camel_case_types, use_key_in_widget_constructors, no_leading_underscores_for_local_identifiers
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages, unused_field, prefer_final_fields, camel_case_types, use_key_in_widget_constructors, no_leading_underscores_for_local_identifiers, unused_element
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -472,11 +472,11 @@ class _homePagePageState extends State<homePagePage> {
                                   // Add your onPressed code here!
                                   vibrate();
                                 },
-                                child: const Text("Open assesment"),
                                 style: TextButton.styleFrom(
                                   foregroundColor: const Color.fromARGB(255, 151, 130, 163), 
                                   padding: const EdgeInsets.symmetric(horizontal: 0),// Customizable text color
                                 ),
+                                child: const Text("Open assesment"),
                               ),
                             ],
                           ),
