@@ -1484,7 +1484,7 @@ class _homePagePageState extends State<homePagePage> {
                             vibrate();
                             playUiSound(2);
                             saveIndex(4);
-                            showMd('readme.md');
+                            showMd('README.md');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
