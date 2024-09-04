@@ -83,6 +83,14 @@ class MyMainPage extends StatefulWidget {
   State<MyMainPage> createState() => _MyMainPageState();
 }
 
+pushHome(BuildContext context) {
+  Navigator.pushNamed(context, '/home');
+}
+
+pushPre(BuildContext context) {
+  Navigator.pushNamed(context, '/pre');
+}
+
 Future<void> initializeWindow(BuildContext context) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   WidgetsFlutterBinding.ensureInitialized();
@@ -102,16 +110,18 @@ Future<void> initializeWindow(BuildContext context) async {
   if(dataNeeded == true) {
     //user already has local data saved
     Future.delayed(Duration(seconds: sec), () {
-      Navigator.pushNamed(context, '/home');
+      pushHome(context);
     });
   } else {
     //user doesn't have local data saved
     Future.delayed(Duration(seconds: sec), () {
-      Navigator.pushNamed(context, '/pre');
+      pushPre(context);
     });
   }
 
 }
+
+
 
 class _MyMainPageState extends State<MyMainPage> {
   bool _showColumn = false;
