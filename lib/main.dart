@@ -83,35 +83,37 @@ class MyMainPage extends StatefulWidget {
   State<MyMainPage> createState() => _MyMainPageState();
 }
 
+
 Future<void> initializeWindow(BuildContext context) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   WidgetsFlutterBinding.ensureInitialized();
 
-  //get if the user has already saved local data
+  // Get if the user has already saved local data
   final bool? dataNeeded = prefs.getBool('hln_setup');
   final bool shorterBoot = prefs.getBool('hln_shorter_boot') ?? false;
-  
-  int sec;
 
-  if (shorterBoot == true) {
-    sec = 1;
+  int sec = shorterBoot ? 1 : 4; // Use a ternary operator for brevity
+
+  // Use a local variable to hold the route name
+  String routeName;
+
+  if (dataNeeded == true) {
+    // User already has local data saved
+    routeName = '/home';
   } else {
-    sec = 4;
+    // User doesn't have local data saved
+    routeName = '/pre';
   }
 
-  if(dataNeeded == true) {
-    //user already has local data saved
-    Future.delayed(Duration(seconds: sec), () {
-      Navigator.pushNamed(context, '/home');
-    });
-  } else {
-    //user doesn't have local data saved
-    Future.delayed(Duration(seconds: sec), () {
-      Navigator.pushNamed(context, '/pre');
-    });
+  // Delay and then navigate
+  await Future.delayed(Duration(seconds: sec));
+  // Check if the context is still valid before navigating
+  if (context.mounted) {
+    Navigator.pushNamed(context, routeName);
   }
-
 }
+
+
 
 class _MyMainPageState extends State<MyMainPage> {
   bool _showColumn = false;

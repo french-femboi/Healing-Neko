@@ -12,7 +12,7 @@
 // based on ideas from firebird496
 // ----------------------------------------------------------------------------
 //
-// ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors, unused_import, camel_case_types
 import 'dart:async';
 import 'dart:convert';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -207,21 +207,21 @@ class _bugPageState extends State<bugPage> {
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
-        backgroundColor: Color.fromARGB(255, 39, 33, 43),
+        backgroundColor: const Color.fromARGB(255, 39, 33, 43),
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Color(0xFFC8ACEE)),
+          icon: const Icon(Icons.arrow_back_ios, color: Color(0xFFC8ACEE)),
           onPressed: () {
             vibrate();
             Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => homePage()),
+                MaterialPageRoute(builder: (context) => const homePage()),
                 (route) => false);
           },
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(2.0), // Height of the bottom bar
+          preferredSize: const Size.fromHeight(2.0), // Height of the bottom bar
           child: Container(
-            color: Color(0xFFC8ACEE), // Color of the bottom bar
+            color: const Color(0xFFC8ACEE), // Color of the bottom bar
             height: 2.0, // Height of the bottom bar
           ),
         ),
@@ -324,7 +324,7 @@ class _bugPageState extends State<bugPage> {
               ),
               const SizedBox(height: 10),
               CheckboxListTile(
-                title: Text("Beta program",
+                title: const Text("Beta program",
                     style: TextStyle(
                         color: Color(0xFF7F698C), fontWeight: FontWeight.w700)),
                 value: beta,
@@ -336,7 +336,7 @@ class _bugPageState extends State<bugPage> {
                 controlAffinity: ListTileControlAffinity.leading,
               ),
               CheckboxListTile(
-                title: Text("Alpha program",
+                title: const Text("Alpha program",
                     style: TextStyle(
                         color: Color(0xFF7F698C), fontWeight: FontWeight.w700)),
                 value: alpha,
@@ -348,7 +348,7 @@ class _bugPageState extends State<bugPage> {
                 controlAffinity: ListTileControlAffinity.leading,
               ),
               CheckboxListTile(
-                title: Text("Special release program",
+                title: const Text("Special release program",
                     style: TextStyle(
                         color: Color(0xFF7F698C), fontWeight: FontWeight.w700)),
                 value: special,
@@ -370,9 +370,9 @@ class _bugPageState extends State<bugPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF332841),
                     padding:
-                        EdgeInsets.symmetric(vertical: 12), // Add some padding
+                        const EdgeInsets.symmetric(vertical: 12), // Add some padding
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment:
                         MainAxisAlignment.center, // Center the content
                     children: [

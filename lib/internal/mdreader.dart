@@ -147,21 +147,21 @@ class _MdPageState extends State<MdPage> {
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
-        backgroundColor: Color.fromARGB(255, 39, 33, 43),
+        backgroundColor: const Color.fromARGB(255, 39, 33, 43),
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Color(0xFFC8ACEE)),
+          icon: const Icon(Icons.arrow_back_ios, color: Color(0xFFC8ACEE)),
           onPressed: () {
             vibrate();
             Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => homePage()),
+                MaterialPageRoute(builder: (context) => const homePage()),
                 (route) => false);
           },
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(2.0), // Height of the bottom bar
+          preferredSize: const Size.fromHeight(2.0), // Height of the bottom bar
           child: Container(
-            color: Color(0xFFC8ACEE), // Color of the bottom bar
+            color: const Color(0xFFC8ACEE), // Color of the bottom bar
             height: 2.0, // Height of the bottom bar
           ),
         ),
@@ -175,14 +175,14 @@ class _MdPageState extends State<MdPage> {
               MarkdownBody(
                   data: _markdownContent,
                   styleSheet: MarkdownStyleSheet(
-                      p: TextStyle(color: Color.fromARGB(255, 238, 228, 252)),
-                      h1: TextStyle(
+                      p: const TextStyle(color: Color.fromARGB(255, 238, 228, 252)),
+                      h1: const TextStyle(
                           color: Color(0xFFC8ACEE),
                           fontWeight: FontWeight.bold),
-                      h2: TextStyle(
+                      h2: const TextStyle(
                           color: Color(0xFFC8ACEE),
                           fontWeight: FontWeight.bold),
-                      a: TextStyle(color: Color.fromARGB(255, 174, 119, 252))),
+                      a: const TextStyle(color: Color.fromARGB(255, 174, 119, 252))),
                   onTapLink: (text, href, title) {
                     if (href != null) {
                       _launchURL(href);

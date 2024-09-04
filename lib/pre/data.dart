@@ -139,12 +139,12 @@ class _DataSavePageState extends State<DataSavePage> {
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
-        backgroundColor: Color.fromARGB(255, 39, 33, 43),
+        backgroundColor: const Color.fromARGB(255, 39, 33, 43),
         automaticallyImplyLeading: false,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(2.0), // Height of the bottom bar
+          preferredSize: const Size.fromHeight(2.0), // Height of the bottom bar
           child: Container(
-            color: Color(0xFFC8ACEE), // Color of the bottom bar
+            color: const Color(0xFFC8ACEE), // Color of the bottom bar
             height: 2.0, // Height of the bottom bar
           ),
         ),

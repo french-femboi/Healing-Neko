@@ -12,7 +12,7 @@
 // based on ideas from firebird496
 // ----------------------------------------------------------------------------
 //
-// ignore_for_file: unused_local_variable, depend_on_referenced_packages, unused_field, prefer_final_fields, camel_case_types, use_key_in_widget_constructors, no_leading_underscores_for_local_identifiers
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages, unused_field, prefer_final_fields, camel_case_types, use_key_in_widget_constructors, no_leading_underscores_for_local_identifiers, unused_element
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -29,6 +29,7 @@ import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -50,6 +51,8 @@ class homePage extends StatelessWidget {
     );
   }
 }
+
+
 
 ThemeData themeData() {
   Color accentColor = const Color(0xFF3A4F50);
@@ -80,6 +83,7 @@ class _homePagePageState extends State<homePagePage> {
   String username = "...";
   String welcomeMessage = "...";
   String petName = "...";
+  String last_tid = "...";
   String petFeeling = "happy";
   var _currentIndex = 0;
 
@@ -121,6 +125,13 @@ class _homePagePageState extends State<homePagePage> {
     });
   }
 
+  Future<void> _launchURL(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
 
   saveSetting(arg1, arg2) async {
@@ -146,6 +157,7 @@ class _homePagePageState extends State<homePagePage> {
     setState(() {
       username = prefs.getString('hln_name') ?? "null";
       petName = prefs.getString('hln_petName') ?? "null";
+      last_tid = prefs.getString('hln_last_tid') ?? "-";
     });
   }
 
@@ -428,6 +440,47 @@ class _homePagePageState extends State<homePagePage> {
                         indent: 0,
                         endIndent: 0,
                         color: Color(0xFF61586D),
+                      ),
+                      const SizedBox(height: 10),
+                      Card(
+                        color: const Color(0xFF332841), 
+                        elevation: 0,// Customizable background color
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Your last assesment',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Color.fromARGB(255, 215, 190, 230), // Customizable text color
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Your last assesment had the T-ID $last_tid. Do you want to see it again?',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 151, 130, 163), 
+                                  // Customizable text color
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  // Add your onPressed code here!
+                                  vibrate();
+                                },
+                                style: TextButton.styleFrom(
+                                  foregroundColor: const Color.fromARGB(255, 151, 130, 163), 
+                                  padding: const EdgeInsets.symmetric(horizontal: 0),// Customizable text color
+                                ),
+                                child: const Text("Open assesment"),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -1431,7 +1484,7 @@ class _homePagePageState extends State<homePagePage> {
                             vibrate();
                             playUiSound(2);
                             saveIndex(4);
-                            showMd('readme.md');
+                            showMd('README.md');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1584,6 +1637,120 @@ class _homePagePageState extends State<homePagePage> {
                                       8), // Add some space between icon and text
                               Text(
                                 "Suggest a feature",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 171, 145, 218),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            vibrate();
+                            playUiSound(2);
+                            saveIndex(4);
+                            launchUrl(Uri.parse('https://apps.french-femboi.eu/view?app=healing-neko'));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF332841),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .web_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(
+                                    255, 171, 145, 218), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "Website",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 171, 145, 218),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            vibrate();
+                            playUiSound(2);
+                            saveIndex(4);
+                            launchUrl(Uri.parse('https://social.fembois.eu/tags/healingneko'));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF332841),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .share_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(
+                                    255, 171, 145, 218), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "Healing Neko on mastodon",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 171, 145, 218),
+                                  fontFamily: 'quicksand',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            vibrate();
+                            playUiSound(2);
+                            saveIndex(4);
+                            launchUrl(Uri.parse('https://github.com/french-femboi/Healing-Neko'));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF332841),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.center, // Center the content
+                            children: [
+                              Icon(
+                                Icons
+                                    .source_rounded, // Choose an appropriate icon
+                                color: Color.fromARGB(
+                                    255, 171, 145, 218), // Match text color
+                                size: 20, // Adjust size as needed
+                              ),
+                              SizedBox(
+                                  width:
+                                      8), // Add some space between icon and text
+                              Text(
+                                "Source code",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 171, 145, 218),
                                   fontFamily: 'quicksand',

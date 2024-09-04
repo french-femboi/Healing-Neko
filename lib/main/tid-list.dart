@@ -12,7 +12,7 @@
 // based on ideas from firebird496
 // ----------------------------------------------------------------------------
 //
-// ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors, unused_element
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -139,21 +139,21 @@ class _TidListPageState extends State<TidListPage> {
           style:
               TextStyle(color: Color(0xFFC8ACEE), fontWeight: FontWeight.w800),
         ),
-        backgroundColor: Color.fromARGB(255, 39, 33, 43),
+        backgroundColor: const Color.fromARGB(255, 39, 33, 43),
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Color(0xFFC8ACEE)),
+          icon: const Icon(Icons.arrow_back_ios, color: Color(0xFFC8ACEE)),
           onPressed: () {
             vibrate();
             Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => homePage()),
+                MaterialPageRoute(builder: (context) => const homePage()),
                 (route) => false);
           },
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(2.0), // Height of the bottom bar
+          preferredSize: const Size.fromHeight(2.0), // Height of the bottom bar
           child: Container(
-            color: Color(0xFFC8ACEE), // Color of the bottom bar
+            color: const Color(0xFFC8ACEE), // Color of the bottom bar
             height: 2.0, // Height of the bottom bar
           ),
         ),
@@ -165,11 +165,11 @@ class _TidListPageState extends State<TidListPage> {
           child: Column(
             children: [
               const SizedBox(height: 10),
-              SizedBox(
+              const SizedBox(
                 width: double.infinity,
                 child: Text(
                   "Past T-ID's",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 30,
                     color: Color(0xFFC8ACEE),
                     fontWeight: FontWeight.w900,
@@ -192,7 +192,7 @@ class _TidListPageState extends State<TidListPage> {
                 width: double.infinity,
                 child: Text(
                   tids,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     color: Color.fromARGB(255, 173, 149, 187),
                     fontWeight: FontWeight.w700,
