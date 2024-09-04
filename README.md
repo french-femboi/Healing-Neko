@@ -58,3 +58,7 @@ _Strings_
 
 _Integers_
 - **hln_index** - integer - used for setting a custom navigation index when relaunching the home page
+
+## Repo activity
+
+![Alt](https://repobeats.axiom.co/api/embed/99087bf5b9b388ddf57682bfa1d2811868506b65.svg "Repobeats analytics image")
