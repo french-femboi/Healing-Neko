@@ -1,0 +1,30 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ "production" ]
+  pull_request:
+    branches: [ "production" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "stable" # Specify the Flutter version you want to use
+          cache: true # Enable caching for faster builds
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      #- name: Run tests
+      #  run: flutter test
+
+      - name: Build APK
+        run: flutter build apk --release
