@@ -2,7 +2,7 @@
 
 Feeling a bit down, are we? No worries at all, fren! Our marvelous Healing Neko app is here to sprinkle some joy and warmth into your day! Whether you're feeling blue or just need a little pick-me-up, our adorable neko companion is ready to lend a paw and whisk away those worries. 🐾✨ So why wait? Dive into the world of Healing Neko today and let the purr-fect remedy for your soul whisk you away to a land of smiles and sunshine! 🌞😺
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N2FINT7) [![Translation status](http://translate.catpawz.eu/widget/catpawz/healing-neko/svg-badge.svg)](http://translate.catpawz.eu/engage/catpawz/) [![Dart](https://github.com/french-femboi/Healing-Neko/actions/workflows/dart.yml/badge.svg)](https://github.com/french-femboi/Healing-Neko/actions/workflows/dart.yml)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N2FINT7) [![Translation status](http://translate.catpawz.eu/widget/catpawz/healing-neko/svg-badge.svg)](http://translate.catpawz.eu/engage/catpawz/) [![Flutter CI - PROD](https://github.com/french-femboi/Healing-Neko/actions/workflows/flutter-prod.yml/badge.svg)](https://github.com/french-femboi/Healing-Neko/actions/workflows/flutter-prod.yml) [![Flutter CI - DEV](https://github.com/french-femboi/Healing-Neko/actions/workflows/flutter-dev.yml/badge.svg)](https://github.com/french-femboi/Healing-Neko/actions/workflows/flutter-dev.yml)
 
 ## Built With
 
