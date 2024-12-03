@@ -1690,7 +1690,7 @@ class _homePagePageState extends State<homePagePage> {
                             vibrate();
                             playUiSound(2);
                             saveIndex(4);
-                            launchUrl(Uri.parse('https://apps.french-femboi.eu/view?app=healing-neko'));
+                            launchUrl(Uri.parse('https://apps.catpawz.net/view?app=healing-neko'));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF332841),
@@ -1766,7 +1766,7 @@ class _homePagePageState extends State<homePagePage> {
                             vibrate();
                             playUiSound(2);
                             saveIndex(4);
-                            launchUrl(Uri.parse('https://github.com/french-femboi/Healing-Neko'));
+                            launchUrl(Uri.parse('https://github.com/catpawzz/Healing-Neko'));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF332841),
